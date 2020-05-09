@@ -8,4 +8,10 @@ extension TemperatureConversionsX on num {
 
   double get asFahrenheit => _k2f(this);
   double get asCelsius => _f2c(_k2f(this));
+
+  String get asPrettyFahrenheit => this.asFahrenheit.asThreeSigFigs;
+}
+
+extension DoubleFormattingX on num {
+  String get asThreeSigFigs => this.toStringAsPrecision(3);
 }
