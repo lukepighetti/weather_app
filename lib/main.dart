@@ -2,25 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:srl/screens/weather_screen.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(SRWeatherApp());
 }
 
-class MyApp extends StatelessWidget {
+class SRWeatherApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'StatesRebuilder Weather',
       theme: ThemeData(
         colorScheme: ColorScheme.light().copyWith(
-            primary: Color(0xff2962FF),
-            primaryVariant: Color(0xff0039cb),
-            secondary: Color(0xff3BACFF),
-            secondaryVariant: Color(0xff007ecb),
-          ),
+          primary: Color(0xff2962FF),
+          primaryVariant: Color(0xff0039cb),
+          secondary: Color(0xff3BACFF),
+          secondaryVariant: Color(0xff007ecb),
+        ),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: WeatherScreen(),
     );
   }
 }
-

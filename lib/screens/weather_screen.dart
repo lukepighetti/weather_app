@@ -10,7 +10,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Text("HomeScreen"),
+        child: Text("haha weather machine goes brrr"),
       ),
     );
   }
