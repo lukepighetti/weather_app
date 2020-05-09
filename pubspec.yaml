@@ -1,0 +1,25 @@
+name: srl
+description: A test project for states_rebuilder, live streamed by Luke Pighetti & GroovinChip.
+publish_to: "none"
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^0.1.3
+  states_rebuilder: ^1.15.0
+  json_annotation:
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  json_serializable:
+
+flutter:
+  uses-material-design: true
