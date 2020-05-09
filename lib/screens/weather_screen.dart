@@ -10,8 +10,6 @@ class WeatherScreen extends StatefulWidget {
 }
 
 class _WeatherScreenState extends State<WeatherScreen> {
-  WeatherService _weatherService = WeatherService.instance;
-
   final ReactiveModel<OpenWeatherOneCall> weatherOneCall =
       ReactiveModel.create(null);
 
@@ -22,7 +20,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
         child: WhenRebuilder<OpenWeatherOneCall>(
           observe: () => weatherOneCall,
           initState: (context, reactiveModel) => reactiveModel.future(
-            (initialValue) => _weatherService.fetchWeather(),
+            (initialValue) => RM.get<WeatherService>().value.fetchWeather(),
           ),
           onIdle: () => Text("Waiting for weather..."),
           onWaiting: () => CircularProgressIndicator(),
