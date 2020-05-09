@@ -1,29 +1,28 @@
-// import 'dart:convert';
+import 'dart:convert';
 
-// import 'package:http/http.dart' as http;
-// import 'package:meridian/extensions/extensions.dart';
-// import 'package:meridian/app_config.dart';
-// import 'package:meridian/models/open_weather_api.dart';
-// import 'package:meridian/models/position_model.dart';
-// import 'package:meridian/models/weather_model.dart';
+import 'package:http/http.dart' as http;
+import 'package:srl/config.dart';
+import 'package:srl/services/position.dart';
+import 'package:srl/services/weather_api_models.dart';
 
-// class WeatherService {
-//   const WeatherService._();
-//   static const instance = WeatherService._();
+class WeatherService {
+  const WeatherService._();
+  static const instance = WeatherService._();
 
-//   /// Get the latest WeatherModel
-//   Future<WeatherModel> fetchWeather(PositionModel position) async {
-//     final uri = Uri.parse("${AppConfig.openWeatherBaseUrl}/onecall").replace(
-//       queryParameters: {
-//         "lat": "${position.latitude}",
-//         "lon": "${position.longitude}",
-//         "appid": AppConfig.openWeatherApiKey,
-//       },
-//     );
+  /// Get the latest WeatherModel
+  Future<OpenWeatherOneCall> fetchWeather(
+      {Position position = const Position.baltimore()}) async {
+    final uri =
+        Uri.parse("https://api.openweathermap.org/data/2.5/onecall").replace(
+      queryParameters: {
+        "lat": "${position.latitude}",
+        "lon": "${position.longitude}",
+        "appid": AppConfig.openWeatherApiKey,
+      },
+    );
 
-//     final response = await http.get(uri);
-//     final json = jsonDecode(response.body);
-//     final oneCall = OpenWeatherOneCall.fromJson(json);
-//     return oneCall.asWeatherModel;
-//   }
-// }
+    final response = await http.get(uri);
+    final json = jsonDecode(response.body);
+    return OpenWeatherOneCall.fromJson(json);
+  }
+}
