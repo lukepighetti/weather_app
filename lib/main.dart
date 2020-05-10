@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:srl/screens/weather_screen.dart';
+import 'package:srl/services/app_config/app_config.dart';
 import 'package:srl/services/open_weather/open_weather.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
 
@@ -12,7 +13,17 @@ class SRWeatherApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Injector(
       inject: [
-        Inject<OpenWeather>(() => OpenWeather()),
+        /// AppConfig
+        Inject(
+          () => AppConfig(),
+        ),
+
+        /// OpenWeather
+        Inject(
+          () => OpenWeather(
+            config: IN.get<AppConfig>(),
+          ),
+        ),
       ],
       builder: (context) {
         return MaterialApp(
@@ -35,7 +46,9 @@ class SRWeatherApp extends StatelessWidget {
             ),
             visualDensity: VisualDensity.adaptivePlatformDensity,
           ),
-          home: WeatherScreen(),
+          routes: {
+            "/": (_) => WeatherScreen(),
+          },
         );
       },
     );

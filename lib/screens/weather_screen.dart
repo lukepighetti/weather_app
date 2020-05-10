@@ -10,22 +10,16 @@ class WeatherScreen extends StatefulWidget {
 }
 
 class _WeatherScreenState extends State<WeatherScreen> {
-  final ReactiveModel<OpenWeatherOneCall> weatherOneCall =
-      ReactiveModel.create(null);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         child: WhenRebuilder<OpenWeatherOneCall>(
-          observe: () => weatherOneCall,
-          initState: (context, reactiveModel) => reactiveModel.future(
-            (initialValue) => RM.get<OpenWeather>().value.fetchWeather(),
-          ),
-          onIdle: () => Center(child: Text("Waiting for weather...")),
+          observe: () => RM.future(RM.get<OpenWeather>().value.fetchWeather()),
+          onIdle: () => Center(child: Text("We're waiting for the weather!")),
           onWaiting: () => Center(child: CircularProgressIndicator()),
-          onError: (e) => Center(child: Text(e)),
-          onData: (OpenWeatherOneCall weatherCall) {
+          onError: (error) => Center(child: Text("$error")),
+          onData: (weatherCall) {
             return SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
