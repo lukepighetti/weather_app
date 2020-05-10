@@ -2,13 +2,13 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:srl/config.dart';
-import 'package:srl/services/position.dart';
-import 'package:srl/services/weather_api_models.dart';
+import 'package:srl/models/position.dart';
 
-class WeatherService {
-  const WeatherService._();
-  static const instance = WeatherService._();
+import 'models.dart';
 
+export 'models.dart';
+
+class OpenWeather {
   /// Get the latest WeatherModel
   Future<OpenWeatherOneCall> fetchWeather(
       {Position position = const Position.baltimore()}) async {

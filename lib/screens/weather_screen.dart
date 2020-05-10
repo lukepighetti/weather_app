@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:srl/services/weather_api.dart';
-import 'package:srl/services/weather_api_models.dart';
-import 'package:srl/extensions/double.dart';
 import 'package:srl/extensions/date_time.dart';
+import 'package:srl/extensions/num.dart';
+import 'package:srl/services/open_weather/open_weather.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
 
 class WeatherScreen extends StatefulWidget {
@@ -21,7 +20,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
         child: WhenRebuilder<OpenWeatherOneCall>(
           observe: () => weatherOneCall,
           initState: (context, reactiveModel) => reactiveModel.future(
-            (initialValue) => RM.get<WeatherService>().value.fetchWeather(),
+            (initialValue) => RM.get<OpenWeather>().value.fetchWeather(),
           ),
           onIdle: () => Center(child: Text("Waiting for weather...")),
           onWaiting: () => Center(child: CircularProgressIndicator()),

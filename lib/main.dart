@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:srl/screens/weather_screen.dart';
+import 'package:srl/services/open_weather/open_weather.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
-import 'package:srl/services/weather_api.dart';
 
 void main() {
   runApp(SRWeatherApp());
@@ -12,7 +12,7 @@ class SRWeatherApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Injector(
       inject: [
-        Inject<WeatherService>(() => WeatherService.instance),
+        Inject<OpenWeather>(() => OpenWeather()),
       ],
       builder: (context) {
         return MaterialApp(
