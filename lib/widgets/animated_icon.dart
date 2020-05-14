@@ -22,8 +22,15 @@ class SRLAnimatedIcon extends StatelessWidget {
 
 /// The animated icon to display
 enum AnimatedIconType {
+  clearSkyDay,
+  clearSkyNight,
+  cloudy,
   fog,
   hurricane,
+  partlyCloudyDay,
+  partlyCloudyNight,
+  rain,
+  snow,
   thunderStorm,
   tornado,
   windy,
@@ -33,10 +40,24 @@ enum AnimatedIconType {
 extension AnimatedIconTypeGettersX on AnimatedIconType {
   String get filename {
     switch (this) {
+      case AnimatedIconType.clearSkyDay:
+        return "clear-sky-day.json";
+      case AnimatedIconType.clearSkyNight:
+        return "clear-sky-night.json";
+      case AnimatedIconType.cloudy:
+        return "cloudy.json";
       case AnimatedIconType.fog:
         return "fog.json";
       case AnimatedIconType.hurricane:
         return "hurricane.json";
+      case AnimatedIconType.partlyCloudyDay:
+        return "partly-cloudy-day.json";
+      case AnimatedIconType.partlyCloudyNight:
+        return "partly-cloudy-night.json";
+      case AnimatedIconType.rain:
+        return "rain.json";
+      case AnimatedIconType.snow:
+        return "snow.json";
       case AnimatedIconType.thunderStorm:
         return "thunder-storm.json";
       case AnimatedIconType.tornado:

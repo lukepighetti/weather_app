@@ -38,7 +38,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                           style: TextStyle(fontSize: 36),
                         ),
                         SRLAnimatedIcon(
-                          type: AnimatedIconType.windy,
+                          type: AnimatedIconType.snow,
                         ),
                       ],
                     ),
