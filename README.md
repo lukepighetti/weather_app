@@ -8,7 +8,7 @@ A weather app written in Flutter by Luke Pighetti and GroovinChip!
 
 ## Attribution
 
-A special thanks to Eddy for contributing his thoughtful design and animated icons to this project!
+A special thanks to Eddy for contributing his thoughtful [design](https://dribbble.com/shots/7180398-Weather-App-Concept) and [animated icons](https://dribbble.com/shots/6818866-Premium-Weather-Icon-Set) to this project!
 
 <img src="./readme/assets/avatar-eddy-gann.jpg" width="250"><br/>
 Eddy Gann  
