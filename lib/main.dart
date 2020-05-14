@@ -29,6 +29,7 @@ class SRWeatherApp extends StatelessWidget {
         return MaterialApp(
           title: 'SR Weather',
           theme: ThemeData(
+            fontFamily: "Brandon",
             colorScheme: ColorScheme.light().copyWith(
               primary: Color(0xff2962FF),
               primaryVariant: Color(0xff0039cb),
@@ -37,7 +38,9 @@ class SRWeatherApp extends StatelessWidget {
             ),
             visualDensity: VisualDensity.adaptivePlatformDensity,
           ),
-          darkTheme: ThemeData.dark().copyWith(
+          darkTheme: ThemeData(
+            fontFamily: "Brandon",
+            brightness: Brightness.dark,
             colorScheme: ColorScheme.dark().copyWith(
               primary: Color(0xff2962FF),
               primaryVariant: Color(0xff0039cb),

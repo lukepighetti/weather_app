@@ -35,7 +35,10 @@ class _WeatherScreenState extends State<WeatherScreen> {
                         SizedBox(height: 16),
                         Text(
                           '${weatherCall.current.feelsLike.asPrettyFahrenheit}°F',
-                          style: TextStyle(fontSize: 36),
+                          style: TextStyle(
+                            fontSize: 36,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                         SRLAnimatedIcon(
                           type: AnimatedIconType.snow,

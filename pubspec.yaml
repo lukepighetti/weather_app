@@ -27,5 +27,13 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
   assets:
     - assets/lottie/
+  
+  fonts:
+    - family: Brandon
+      fonts:
+        - asset: assets/fonts/Brandon-Regular.otf
+        - asset: assets/fonts/Brandon-Bold.otf
+          weight: 700
