@@ -1,13 +1,18 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
-import 'package:srl/config.dart';
-import 'package:srl/services/position.dart';
-import 'package:srl/services/weather_api_models.dart';
+import 'package:srl/models/position.dart';
+import 'package:srl/services/app_config/app_config.dart';
 
-class WeatherService {
-  const WeatherService._();
-  static const instance = WeatherService._();
+import 'models.dart';
+
+export 'models.dart';
+
+class OpenWeather {
+  final AppConfig config;
+
+  OpenWeather({@required this.config});
 
   /// Get the latest WeatherModel
   Future<OpenWeatherOneCall> fetchWeather(
@@ -17,7 +22,7 @@ class WeatherService {
       queryParameters: {
         "lat": "${position.latitude}",
         "lon": "${position.longitude}",
-        "appid": AppConfig.openWeatherApiKey,
+        "appid": config.openWeatherApiKey,
       },
     );
 

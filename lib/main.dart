@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:srl/screens/weather_screen.dart';
+import 'package:srl/services/app_config/app_config.dart';
+import 'package:srl/services/open_weather/open_weather.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
-import 'package:srl/services/weather_api.dart';
 
 void main() {
   runApp(SRWeatherApp());
@@ -12,12 +13,23 @@ class SRWeatherApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Injector(
       inject: [
-        Inject<WeatherService>(() => WeatherService.instance),
+        /// AppConfig
+        Inject<AppConfig>(
+          () => AppConfig(),
+        ),
+
+        /// OpenWeather
+        Inject<OpenWeather>(
+          () => OpenWeather(
+            config: IN.get<AppConfig>(),
+          ),
+        ),
       ],
       builder: (context) {
         return MaterialApp(
           title: 'SR Weather',
           theme: ThemeData(
+            fontFamily: "Brandon",
             colorScheme: ColorScheme.light().copyWith(
               primary: Color(0xff2962FF),
               primaryVariant: Color(0xff0039cb),
@@ -26,7 +38,9 @@ class SRWeatherApp extends StatelessWidget {
             ),
             visualDensity: VisualDensity.adaptivePlatformDensity,
           ),
-          darkTheme: ThemeData.dark().copyWith(
+          darkTheme: ThemeData(
+            fontFamily: "Brandon",
+            brightness: Brightness.dark,
             colorScheme: ColorScheme.dark().copyWith(
               primary: Color(0xff2962FF),
               primaryVariant: Color(0xff0039cb),
@@ -35,7 +49,9 @@ class SRWeatherApp extends StatelessWidget {
             ),
             visualDensity: VisualDensity.adaptivePlatformDensity,
           ),
-          home: WeatherScreen(),
+          routes: {
+            "/": (_) => WeatherScreen(),
+          },
         );
       },
     );

@@ -1,16 +1,16 @@
-# srl
+# Weather App
 
-A new Flutter project.
+A weather app written in Flutter by Luke Pighetti and GroovinChip!
 
-## Getting Started
+## Technology
 
-This project is a starting point for a Flutter application.
+- `states_rebuilder` for dependency injection & state management
 
-A few resources to get you started if this is your first Flutter project:
+## Attribution
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+A special thanks to Eddy for contributing his [weather app concept](https://dribbble.com/shots/7180398-Weather-App-Concept) and [premium weather icons](https://dribbble.com/shots/6818866-Premium-Weather-Icon-Set) to this project!
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<img src="./readme/assets/avatar-eddy-gann.jpg" width="250"><br/>
+Eddy Gann  
+Gann.eddy@gmail.com  
+[dribbble.com/Ed117](http://dribbble.com/Ed117) | [eddyg.design](https://eddyg.design)
