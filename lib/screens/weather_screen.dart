@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:srl/extensions/date_time.dart';
 import 'package:srl/extensions/num.dart';
 import 'package:srl/services/open_weather/open_weather.dart';
+import 'package:srl/widgets/animated_icon.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
 
 class WeatherScreen extends StatefulWidget {
@@ -35,6 +36,9 @@ class _WeatherScreenState extends State<WeatherScreen> {
                         Text(
                           '${weatherCall.current.feelsLike.asPrettyFahrenheit}°F',
                           style: TextStyle(fontSize: 36),
+                        ),
+                        SRLAnimatedIcon(
+                          type: AnimatedIconType.windy,
                         ),
                       ],
                     ),

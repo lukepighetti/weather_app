@@ -14,12 +14,12 @@ class SRWeatherApp extends StatelessWidget {
     return Injector(
       inject: [
         /// AppConfig
-        Inject(
+        Inject<AppConfig>(
           () => AppConfig(),
         ),
 
         /// OpenWeather
-        Inject(
+        Inject<OpenWeather>(
           () => OpenWeather(
             config: IN.get<AppConfig>(),
           ),
