@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'models.dart';
+part of 'onecall.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
@@ -25,7 +25,7 @@ OpenWeatherOneCall _$OpenWeatherOneCallFromJson(Map<String, dynamic> json) {
 OpenWeatherHourlyPoint _$OpenWeatherHourlyPointFromJson(
     Map<String, dynamic> json) {
   return OpenWeatherHourlyPoint(
-    _openWeatherDateTimeFrom(json['dt'] as int),
+    openWeatherDateTimeFrom(json['dt'] as int),
     (json['temp'] as num)?.toDouble(),
     (json['feels_like'] as num)?.toDouble(),
     (json['pressure'] as num)?.toDouble(),
@@ -34,15 +34,15 @@ OpenWeatherHourlyPoint _$OpenWeatherHourlyPointFromJson(
     (json['clouds'] as num)?.toDouble(),
     (json['wind_speed'] as num)?.toDouble(),
     (json['wind_deg'] as num)?.toDouble(),
-    _openWeatherDescriptionFrom(json['weather'] as List),
+    openWeatherDescriptionFrom(json['weather'] as List),
   );
 }
 
 OpenWeatherCurrent _$OpenWeatherCurrentFromJson(Map<String, dynamic> json) {
   return OpenWeatherCurrent(
-    _openWeatherDateTimeFrom(json['dt'] as int),
-    _openWeatherDateTimeFrom(json['sunrise'] as int),
-    _openWeatherDateTimeFrom(json['sunset'] as int),
+    openWeatherDateTimeFrom(json['dt'] as int),
+    openWeatherDateTimeFrom(json['sunrise'] as int),
+    openWeatherDateTimeFrom(json['sunset'] as int),
     (json['temp'] as num)?.toDouble(),
     (json['feels_like'] as num)?.toDouble(),
     (json['pressure'] as num)?.toDouble(),
@@ -53,16 +53,6 @@ OpenWeatherCurrent _$OpenWeatherCurrentFromJson(Map<String, dynamic> json) {
     (json['visibility'] as num)?.toDouble(),
     (json['wind_speed'] as num)?.toDouble(),
     (json['wind_deg'] as num)?.toDouble(),
-    _openWeatherDescriptionFrom(json['weather'] as List),
-  );
-}
-
-OpenWeatherDescription _$OpenWeatherDescriptionFromJson(
-    Map<String, dynamic> json) {
-  return OpenWeatherDescription(
-    json['id'] as int,
-    json['main'] as String,
-    json['description'] as String,
-    json['icon'] as String,
+    openWeatherDescriptionFrom(json['weather'] as List),
   );
 }

@@ -1,21 +1,7 @@
-import 'package:json_annotation/json_annotation.dart';
+import 'package:srl/services/open_weather/annotations.dart';
+import 'package:srl/services/open_weather/models/open_weather_description.dart';
 
-part 'models.g.dart';
-
-/// [openWeatherJsonSerializable]
-const openWeatherJsonSerializable =
-    JsonSerializable(createToJson: false, fieldRename: FieldRename.snake);
-
-/// [openWeatherDateTimeKey]
-const openWeatherDateTimeKey = JsonKey(fromJson: _openWeatherDateTimeFrom);
-_openWeatherDateTimeFrom(int i) =>
-    DateTime.fromMillisecondsSinceEpoch(i * 1000);
-
-/// [openWeatherDescriptionKey]
-const openWeatherDescriptionKey =
-    JsonKey(fromJson: _openWeatherDescriptionFrom);
-_openWeatherDescriptionFrom(List<dynamic> e) =>
-    OpenWeatherDescription.fromJson(e.first);
+part 'onecall.g.dart';
 
 @openWeatherJsonSerializable
 class OpenWeatherOneCall {
@@ -111,17 +97,4 @@ class OpenWeatherCurrent implements OpenWeatherHourlyPoint {
 
   factory OpenWeatherCurrent.fromJson(Map<String, dynamic> json) =>
       _$OpenWeatherCurrentFromJson(json);
-}
-
-@openWeatherJsonSerializable
-class OpenWeatherDescription {
-  final int id;
-  final String main;
-  final String description;
-  final String icon;
-
-  OpenWeatherDescription(this.id, this.main, this.description, this.icon);
-
-  factory OpenWeatherDescription.fromJson(Map<String, dynamic> json) =>
-      _$OpenWeatherDescriptionFromJson(json);
 }
