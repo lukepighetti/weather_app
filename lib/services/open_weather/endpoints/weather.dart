@@ -27,18 +27,20 @@ class CurrentWeather {
   final int cod;
 
   CurrentWeather(
-      this.coord,
-      this.weather,
-      this.base,
-      this.main,
-      this.visibility,
-      this.wind,
-      this.dt,
-      this.timezone,
-      this.id,
-      this.name,
-      this.cod,
-      this.clouds);
+    this.coord,
+    this.weather,
+    this.base,
+    this.main,
+    this.visibility,
+    this.wind,
+    this.dt,
+    this.timezone,
+    this.id,
+    this.name,
+    this.cod,
+    this.clouds,
+  );
+
   factory CurrentWeather.fromJson(Map<String, dynamic> json) =>
       _$CurrentWeatherFromJson(json);
 }
