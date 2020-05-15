@@ -15,10 +15,16 @@ class OpenWeather {
 
   /// A convenience getter for fetching [OpenWeatherOneCall] and [CurrentWeather]
   Future<AllWeatherData> getAllWeatherData(Position position) async {
-    return AllWeatherData(
-      await getWeatherOneCall(position),
-      await getCurrentWeather(position),
-    );
+    OpenWeatherOneCall oneCall;
+    CurrentWeather currentWeather;
+
+    /// A type safe way to perform futures in parallel
+    await Future.wait([
+      getWeatherOneCall(position).then((e) => oneCall = e),
+      getCurrentWeather(position).then((e) => currentWeather = e),
+    ]);
+
+    return AllWeatherData(oneCall, currentWeather);
   }
 
   /// Get the latest [OpenWeatherOneCall]
