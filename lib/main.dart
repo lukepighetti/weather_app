@@ -30,25 +30,16 @@ class SRWeatherApp extends StatelessWidget {
           title: 'SR Weather',
           theme: ThemeData(
             fontFamily: "Brandon",
-            colorScheme: ColorScheme.light().copyWith(
-              primary: Color(0xff2962FF),
-              primaryVariant: Color(0xff0039cb),
-              secondary: Color(0xff3BACFF),
-              secondaryVariant: Color(0xff007ecb),
-            ),
+            primaryColor: Color(0xff0303D3),
+            accentColor: Color(0xff4944D5),
             visualDensity: VisualDensity.adaptivePlatformDensity,
           ),
           darkTheme: ThemeData(
             fontFamily: "Brandon",
             brightness: Brightness.dark,
-            colorScheme: ColorScheme.dark().copyWith(
-              primary: Color(0xff2962FF),
-              primaryVariant: Color(0xff0039cb),
-              secondary: Color(0xff3BACFF),
-              secondaryVariant: Color(0xff007ecb),
-            ),
             visualDensity: VisualDensity.adaptivePlatformDensity,
           ),
+          themeMode: ThemeMode.light,
           routes: {
             "/": (_) => WeatherScreen(),
           },
