@@ -1,0 +1,43 @@
+{
+  "coord": {
+    "lon": -68.77,
+    "lat": 44.8
+  },
+  "weather": [
+    {
+      "id": 801,
+      "main": "Clouds",
+      "description": "few clouds",
+      "icon": "02d"
+    }
+  ],
+  "base": "stations",
+  "main": {
+    "temp": 290.02,
+    "feels_like": 284.45,
+    "temp_min": 288.71,
+    "temp_max": 291.15,
+    "pressure": 1016,
+    "humidity": 15
+  },
+  "visibility": 16093,
+  "wind": {
+    "speed": 3.6,
+    "deg": 310
+  },
+  "clouds": {
+    "all": 20
+  },
+  "dt": 1589497671,
+  "sys": {
+    "type": 1,
+    "id": 3430,
+    "country": "US",
+    "sunrise": 1589447236,
+    "sunset": 1589500545
+  },
+  "timezone": -14400,
+  "id": 4957280,
+  "name": "Bangor",
+  "cod": 200
+}

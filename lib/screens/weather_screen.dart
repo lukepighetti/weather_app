@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:srl/extensions/date_time.dart';
 import 'package:srl/extensions/num.dart';
+import 'package:srl/models/position.dart';
+import 'package:srl/services/open_weather/models/all_weather_data.dart';
 import 'package:srl/services/open_weather/open_weather.dart';
 import 'package:srl/widgets/animated_icon.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
@@ -15,12 +17,17 @@ class _WeatherScreenState extends State<WeatherScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: WhenRebuilder<OpenWeatherOneCall>(
-          observe: () => RM.future(RM.get<OpenWeather>().value.fetchWeather()),
+        child: WhenRebuilder<AllWeatherData>(
+          observe: () => RM.future(
+              IN.get<OpenWeather>().getAllWeatherData(Position.baltimore())),
           onIdle: () => Center(child: Text("We're waiting for the weather!")),
           onWaiting: () => Center(child: CircularProgressIndicator()),
           onError: (error) => Center(child: Text("$error")),
-          onData: (weatherCall) {
+          onData: (allWeather) {
+            final weatherCall = allWeather.oneCall;
+            final locationName = allWeather.currentWeather.name;
+
+            if (weatherCall == null) return SizedBox.shrink();
             return SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -31,7 +38,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text("It feels like"),
+                        Text("$locationName"),
                         SizedBox(height: 16),
                         Text(
                           '${weatherCall.current.feelsLike.asPrettyFahrenheit}°F',
