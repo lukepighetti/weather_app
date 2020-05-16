@@ -1,11 +1,11 @@
 name: srl
 description: A test project for states_rebuilder, live streamed by Luke Pighetti & GroovinChip.
-publish_to: "none"
+publish_to: 'none'
 
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: '>=2.7.0 <3.0.0'
 
 dependencies:
   flutter:
@@ -17,6 +17,9 @@ dependencies:
   json_annotation:
   lottie:
   states_rebuilder:
+  google_nav_bar:
+  outline_material_icons:
+  material_design_icons_flutter:
 
 dev_dependencies:
   flutter_test:
@@ -30,7 +33,7 @@ flutter:
 
   assets:
     - assets/lottie/
-  
+
   fonts:
     - family: Brandon
       fonts:
