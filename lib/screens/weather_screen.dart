@@ -53,7 +53,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          SizedBox(height: 8),
+                          SizedBox(height: 4),
 
                           /// Weather description, ie `Scattered Snow`
                           Text(
@@ -63,6 +63,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                               color: Colors.grey.shade500,
                             ),
                           ),
+                          SizedBox(height: 4),
 
                           /// Location status?
                           Row(
@@ -88,29 +89,47 @@ class _WeatherScreenState extends State<WeatherScreen> {
                       Column(
                         children: [
                           /// Temperature, ie `14°`
-                          Text(
-                            '${weatherCall.current.temp.asFahrenheit.round()}°',
-                            style: TextStyle(
-                              fontSize: 48,
-                              fontWeight: FontWeight.bold,
-                              color: Theme.of(context).primaryColor,
-                            ),
+                          Stack(
+                            overflow: Overflow.visible,
+                            children: [
+                              Text(
+                                '${weatherCall.current.temp.asFahrenheit.round()}',
+                                style: TextStyle(
+                                  fontSize: 48,
+                                  fontWeight: FontWeight.bold,
+                                  color: Theme.of(context).primaryColor,
+                                ),
+                              ),
+
+                              /// Degree symbol, artisinally positioned
+                              Positioned(
+                                right: -16,
+                                child: Text(
+                                  '°',
+                                  style: TextStyle(
+                                    fontSize: 48,
+                                    fontWeight: FontWeight.bold,
+                                    color: Theme.of(context).primaryColor,
+                                  ),
+                                ),
+                              )
+                            ],
                           ),
 
                           /// Wind speed, ie `5 mph`
                           Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(999),
-                              color: Colors.grey.shade200,
+                              color: Colors.grey.shade100,
                             ),
                             padding: EdgeInsets.symmetric(
                               vertical: 4,
                               horizontal: 8,
                             ),
                             child: Text(
-                              "${weatherCall.current.windSpeed.round()} mph",
+                              "${weatherCall.current.windSpeed.round()}mph",
                               style: TextStyle(
-                                color: Colors.grey.shade300,
+                                color: Colors.grey.shade500,
                               ),
                             ),
                           ),
