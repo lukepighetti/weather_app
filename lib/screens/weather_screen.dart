@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import 'package:srl/extensions/color.dart';
 import 'package:srl/extensions/num.dart';
 import 'package:srl/extensions/open_weather_hourly_point.dart';
@@ -191,48 +191,38 @@ class _WeatherScreenState extends State<WeatherScreen> {
                                   Radius.circular(50),
                                 ),
                               ),
-                              padding: EdgeInsets.all(10),
-                              child: GNav(
-                                gap: 8,
-                                iconSize: 28,
-                                activeColor: Theme.of(context).primaryColor,
-                                color: Theme.of(context).primaryColor,
-                                tabBackgroundColor:
-                                    Theme.of(context).primaryColor.opacity100,
-                                duration: Duration(milliseconds: 250),
-                                curve: Curves.easeInOut,
-                                textStyle: TextStyle(
-                                  fontSize: 13,
-                                  color: Theme.of(context).primaryColor,
-                                  letterSpacing: 1.0,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                padding: EdgeInsets.symmetric(
-                                  horizontal: 16,
-                                  vertical: 8,
-                                ),
-                                tabs: [
-                                  GButton(
-                                    icon: SRLIcons.forecast_alt,
-                                    text: 'Forecast'.toUpperCase(),
-                                  ),
-                                  GButton(
-                                    icon: SRLIcons.radar,
-                                    text: 'Radar'.toUpperCase(),
-                                  ),
-                                  GButton(
-                                    icon: SRLIcons.locations,
-                                    text: 'Locations'.toUpperCase(),
-                                  ),
-                                  GButton(
-                                    icon: SRLIcons.settings,
-                                    text: 'Settings'.toUpperCase(),
-                                  ),
-                                ],
-                                selectedIndex: _selectedIndex,
-                                onTabChange: (index) {
+                              child: SalomonBottomBar(
+                                currentIndex: _selectedIndex,
+                                onTap: (index) {
                                   setState(() => _selectedIndex = index);
                                 },
+                                margin: EdgeInsets.all(10),
+                                itemPadding: EdgeInsets.symmetric(
+                                  horizontal: 16,
+                                  vertical: 12,
+                                ),
+                                selectedItemColor:
+                                    Theme.of(context).primaryColor,
+                                unselectedItemColor:
+                                    Theme.of(context).primaryColor,
+                                items: [
+                                  SBBItem(
+                                    icon: Icon(SRLIcons.forecast_alt),
+                                    title: Text('Forecast'.toUpperCase()),
+                                  ),
+                                  SBBItem(
+                                    icon: Icon(SRLIcons.radar),
+                                    title: Text('Radar'.toUpperCase()),
+                                  ),
+                                  SBBItem(
+                                    icon: Icon(SRLIcons.locations),
+                                    title: Text('Locations'.toUpperCase()),
+                                  ),
+                                  SBBItem(
+                                    icon: Icon(SRLIcons.settings),
+                                    title: Text('Settings'.toUpperCase()),
+                                  ),
+                                ],
                               ),
                             ),
                           ),
