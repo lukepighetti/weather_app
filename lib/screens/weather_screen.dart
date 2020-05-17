@@ -55,21 +55,24 @@ class _WeatherScreenState extends State<WeatherScreen> {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          SizedBox(height: 8),
+                          SizedBox(height: 2),
 
                           /// Weather description, ie `Scattered Snow`
                           Text(
                             '${weatherCall.current.weather.description.toCapitalized()}',
                             style: TextStyle(
-                              fontSize: 13,
-                              color: Colors.grey.shade400,
-                              fontWeight: FontWeight.w600,
+                              fontSize: 16,
+                              color: Theme.of(context)
+                                  .primaryColor
+                                  .withOpacity(0.20),
+                              fontWeight: FontWeight.w700,
+                              letterSpacing: 0.3,
                               fontFamily: "", // Use default system font
                             ),
                           ),
-                          SizedBox(height: 8),
+                          SizedBox(height: 12),
 
-                          /// Location status?
+                          /// Page indicator
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -78,8 +81,12 @@ class _WeatherScreenState extends State<WeatherScreen> {
                                 color: Theme.of(context).primaryColor,
                                 size: 18,
                               ),
-                              DotIndicator(),
-                              DotIndicator(),
+                              for (var _ in [1, 2])
+                                DotIndicator(
+                                  color: Theme.of(context)
+                                      .primaryColor
+                                      .withOpacity(0.20),
+                                ),
                             ],
                           ),
                         ],
@@ -88,7 +95,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                       /// Weather icon
                       SRLAnimatedIcon(
                         type: AnimatedIconType.snow,
-                        dimension: 150,
+                        dimension: 196,
                       ),
 
                       /// Temperature & wind speed
@@ -101,20 +108,22 @@ class _WeatherScreenState extends State<WeatherScreen> {
                               Text(
                                 '${weatherCall.current.temp.asFahrenheit.round()}',
                                 style: TextStyle(
-                                  fontSize: 48,
-                                  fontWeight: FontWeight.bold,
+                                  fontSize: 84,
+                                  fontWeight: FontWeight.normal,
+                                  height: 1.0,
                                   color: Theme.of(context).primaryColor,
                                 ),
                               ),
 
                               /// Degree symbol, artisinally positioned
                               Positioned(
-                                right: -16,
+                                right: -30,
                                 child: Text(
                                   '°',
                                   style: TextStyle(
-                                    fontSize: 48,
-                                    fontWeight: FontWeight.bold,
+                                    fontSize: 84,
+                                    height: 1.0,
+                                    fontWeight: FontWeight.normal,
                                     color: Theme.of(context).primaryColor,
                                   ),
                                 ),
@@ -126,16 +135,23 @@ class _WeatherScreenState extends State<WeatherScreen> {
                           Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(999),
-                              color: Colors.grey.shade100,
+                              color: Theme.of(context)
+                                  .primaryColor
+                                  .withOpacity(0.03),
                             ),
                             padding: EdgeInsets.symmetric(
                               vertical: 4,
-                              horizontal: 8,
+                              horizontal: 12,
                             ),
                             child: Text(
                               "${weatherCall.hourly.maxTemp.asFahrenheit.round()}/${weatherCall.hourly.minTemp.asFahrenheit.round()}",
                               style: TextStyle(
-                                color: Colors.grey.shade500,
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                letterSpacing: 1.0,
+                                color: Theme.of(context)
+                                    .primaryColor
+                                    .withOpacity(0.15),
                               ),
                             ),
                           ),
@@ -150,11 +166,18 @@ class _WeatherScreenState extends State<WeatherScreen> {
                   flex: 2,
                   child: Container(
                     decoration: BoxDecoration(
+                      color: Theme.of(context).primaryColor,
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(36),
                         topRight: Radius.circular(36),
                       ),
-                      color: Theme.of(context).primaryColor,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black,
+                          spreadRadius: -20,
+                          blurRadius: 24,
+                        ),
+                      ],
                     ),
                     child: SafeArea(
                       child: Column(
@@ -169,15 +192,15 @@ class _WeatherScreenState extends State<WeatherScreen> {
                                   Radius.circular(50),
                                 ),
                               ),
-                              padding: EdgeInsets.all(8),
+                              padding: EdgeInsets.all(10),
                               child: GNav(
                                 gap: 8,
-                                iconSize: 24,
+                                iconSize: 28,
                                 activeColor: Theme.of(context).primaryColor,
                                 color: Theme.of(context).primaryColor,
                                 tabBackgroundColor: Theme.of(context)
                                     .primaryColor
-                                    .withOpacity(.05),
+                                    .withOpacity(.08),
                                 duration: Duration(milliseconds: 250),
                                 curve: Curves.easeInOut,
                                 textStyle: TextStyle(
