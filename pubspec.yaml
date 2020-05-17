@@ -16,8 +16,8 @@ dependencies:
   intl:
   json_annotation:
   lottie:
+  salomon_bottom_bar:
   states_rebuilder:
-  google_nav_bar:
   # outline_material_icons:
   # material_design_icons_flutter:
 
