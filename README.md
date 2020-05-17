@@ -2,6 +2,13 @@
 
 A weather app written in Flutter by Luke Pighetti and GroovinChip!
 
+## Videos
+
+We do YouTube livestreams every week, alternating between [Luke Pighetti](https://www.youtube.com/channel/UCaZ2cNfzVDi8Ujy0lF7Lc3g) and [GroovinChip](https://www.youtube.com/channel/UCqRA9X1SF1AyCNYkFp7gLTw)'s channels.
+
+- [Episode 1](https://www.youtube.com/watch?v=69CRtlNCir8) Setting up `states_rebuilder` and OpenWeather API
+- [Episode 2](https://www.youtube.com/watch?v=n57LIu_Scx0) Adding design spec, lottie files, and building WeatherScreen
+
 ## Technology
 
 - `states_rebuilder` for dependency injection & state management
