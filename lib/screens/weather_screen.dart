@@ -21,6 +21,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
+        bottom: false,
         child: WhenRebuilder<AllWeatherData>(
           observe: () => RM.future(
               IN.get<OpenWeather>().getAllWeatherData(Position.baltimore())),
@@ -150,65 +151,67 @@ class _WeatherScreenState extends State<WeatherScreen> {
                       ),
                       color: Theme.of(context).primaryColor,
                     ),
-                    child: Column(
-                      children: [
-                        Spacer(),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(50),
+                    child: SafeArea(
+                      child: Column(
+                        children: [
+                          Spacer(),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(50),
+                                ),
                               ),
-                            ),
-                            padding: EdgeInsets.all(8),
-                            child: GNav(
-                              gap: 8,
-                              iconSize: 24,
-                              activeColor: Theme.of(context).primaryColor,
-                              color: Theme.of(context).primaryColor,
-                              tabBackgroundColor: Theme.of(context)
-                                  .primaryColor
-                                  .withOpacity(.05),
-                              duration: Duration(milliseconds: 250),
-                              curve: Curves.easeInOut,
-                              textStyle: TextStyle(
-                                fontSize: 13,
+                              padding: EdgeInsets.all(8),
+                              child: GNav(
+                                gap: 8,
+                                iconSize: 24,
+                                activeColor: Theme.of(context).primaryColor,
                                 color: Theme.of(context).primaryColor,
-                                letterSpacing: 1.0,
-                                fontWeight: FontWeight.bold,
+                                tabBackgroundColor: Theme.of(context)
+                                    .primaryColor
+                                    .withOpacity(.05),
+                                duration: Duration(milliseconds: 250),
+                                curve: Curves.easeInOut,
+                                textStyle: TextStyle(
+                                  fontSize: 13,
+                                  color: Theme.of(context).primaryColor,
+                                  letterSpacing: 1.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 16,
+                                  vertical: 8,
+                                ),
+                                tabs: [
+                                  GButton(
+                                    icon: MdiIcons.calendarOutline,
+                                    text: 'Forecast'.toUpperCase(),
+                                  ),
+                                  GButton(
+                                    icon: MdiIcons.radar,
+                                    text: 'Radar'.toUpperCase(),
+                                  ),
+                                  GButton(
+                                    icon: OMIcons.nearMe,
+                                    text: 'Locations'.toUpperCase(),
+                                  ),
+                                  GButton(
+                                    icon: MdiIcons.cogOutline,
+                                    text: 'Settings'.toUpperCase(),
+                                  ),
+                                ],
+                                selectedIndex: _selectedIndex,
+                                onTabChange: (index) {
+                                  setState(() => _selectedIndex = index);
+                                },
                               ),
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 16,
-                                vertical: 8,
-                              ),
-                              tabs: [
-                                GButton(
-                                  icon: MdiIcons.calendarOutline,
-                                  text: 'Forecast'.toUpperCase(),
-                                ),
-                                GButton(
-                                  icon: MdiIcons.radar,
-                                  text: 'Radar'.toUpperCase(),
-                                ),
-                                GButton(
-                                  icon: OMIcons.nearMe,
-                                  text: 'Locations'.toUpperCase(),
-                                ),
-                                GButton(
-                                  icon: MdiIcons.cogOutline,
-                                  text: 'Settings'.toUpperCase(),
-                                ),
-                              ],
-                              selectedIndex: _selectedIndex,
-                              onTabChange: (index) {
-                                setState(() => _selectedIndex = index);
-                              },
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),
