@@ -28,6 +28,7 @@ class SRWeatherApp extends StatelessWidget {
       builder: (context) {
         return MaterialApp(
           title: 'SR Weather',
+          debugShowCheckedModeBanner: false,
           theme: ThemeData(
             fontFamily: "Brandon",
             primaryColor: Color(0xff0303D3),
