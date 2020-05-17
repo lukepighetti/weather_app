@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:srl/extensions/num.dart';
 import 'package:srl/extensions/string.dart';
+import 'package:srl/extensions/open_weather_hourly_point.dart';
 import 'package:srl/models/position.dart';
 import 'package:srl/services/open_weather/models/all_weather_data.dart';
 import 'package:srl/services/open_weather/open_weather.dart';
 import 'package:srl/widgets/animated_icon.dart';
+import 'package:srl/widgets/dot_indicator.dart';
+import 'package:srl/widgets/srl_icons.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
-import 'package:outline_material_icons/outline_material_icons.dart';
 
 class WeatherScreen extends StatefulWidget {
   @override
@@ -21,6 +22,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
+        bottom: false,
         child: WhenRebuilder<AllWeatherData>(
           observe: () => RM.future(
               IN.get<OpenWeather>().getAllWeatherData(Position.baltimore())),
@@ -53,27 +55,38 @@ class _WeatherScreenState extends State<WeatherScreen> {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          SizedBox(height: 4),
+                          SizedBox(height: 2),
 
                           /// Weather description, ie `Scattered Snow`
                           Text(
                             '${weatherCall.current.weather.description.toCapitalized()}',
                             style: TextStyle(
-                              fontSize: 13,
-                              color: Colors.grey.shade500,
+                              fontSize: 16,
+                              color: Theme.of(context)
+                                  .primaryColor
+                                  .withOpacity(0.20),
+                              fontWeight: FontWeight.w700,
+                              letterSpacing: 0.3,
+                              fontFamily: "", // Use default system font
                             ),
                           ),
-                          SizedBox(height: 4),
+                          SizedBox(height: 12),
 
-                          /// Location status?
+                          /// Page indicator
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Icon(
-                                MdiIcons.nearMe,
+                                SRLIcons.locations_filled,
                                 color: Theme.of(context).primaryColor,
-                                size: 12,
+                                size: 18,
                               ),
+                              for (var _ in [1, 2])
+                                DotIndicator(
+                                  color: Theme.of(context)
+                                      .primaryColor
+                                      .withOpacity(0.20),
+                                ),
                             ],
                           ),
                         ],
@@ -82,7 +95,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                       /// Weather icon
                       SRLAnimatedIcon(
                         type: AnimatedIconType.snow,
-                        dimension: 150,
+                        dimension: 196,
                       ),
 
                       /// Temperature & wind speed
@@ -95,20 +108,22 @@ class _WeatherScreenState extends State<WeatherScreen> {
                               Text(
                                 '${weatherCall.current.temp.asFahrenheit.round()}',
                                 style: TextStyle(
-                                  fontSize: 48,
-                                  fontWeight: FontWeight.bold,
+                                  fontSize: 84,
+                                  fontWeight: FontWeight.normal,
+                                  height: 1.0,
                                   color: Theme.of(context).primaryColor,
                                 ),
                               ),
 
                               /// Degree symbol, artisinally positioned
                               Positioned(
-                                right: -16,
+                                right: -30,
                                 child: Text(
                                   '°',
                                   style: TextStyle(
-                                    fontSize: 48,
-                                    fontWeight: FontWeight.bold,
+                                    fontSize: 84,
+                                    height: 1.0,
+                                    fontWeight: FontWeight.normal,
                                     color: Theme.of(context).primaryColor,
                                   ),
                                 ),
@@ -116,20 +131,27 @@ class _WeatherScreenState extends State<WeatherScreen> {
                             ],
                           ),
 
-                          /// Wind speed, ie `5 mph`
+                          /// Max/min temp, ie `24/8`
                           Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(999),
-                              color: Colors.grey.shade100,
+                              color: Theme.of(context)
+                                  .primaryColor
+                                  .withOpacity(0.03),
                             ),
                             padding: EdgeInsets.symmetric(
                               vertical: 4,
-                              horizontal: 8,
+                              horizontal: 12,
                             ),
                             child: Text(
-                              "${weatherCall.current.windSpeed.round()}mph",
+                              "${weatherCall.hourly.maxTemp.asFahrenheit.round()}/${weatherCall.hourly.minTemp.asFahrenheit.round()}",
                               style: TextStyle(
-                                color: Colors.grey.shade500,
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                letterSpacing: 1.0,
+                                color: Theme.of(context)
+                                    .primaryColor
+                                    .withOpacity(0.15),
                               ),
                             ),
                           ),
@@ -144,71 +166,80 @@ class _WeatherScreenState extends State<WeatherScreen> {
                   flex: 2,
                   child: Container(
                     decoration: BoxDecoration(
+                      color: Theme.of(context).primaryColor,
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(36),
                         topRight: Radius.circular(36),
                       ),
-                      color: Theme.of(context).primaryColor,
-                    ),
-                    child: Column(
-                      children: [
-                        Spacer(),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(50),
-                              ),
-                            ),
-                            padding: EdgeInsets.all(8),
-                            child: GNav(
-                              gap: 8,
-                              iconSize: 24,
-                              activeColor: Theme.of(context).primaryColor,
-                              color: Theme.of(context).primaryColor,
-                              tabBackgroundColor: Theme.of(context)
-                                  .primaryColor
-                                  .withOpacity(.05),
-                              duration: Duration(milliseconds: 250),
-                              curve: Curves.easeInOut,
-                              textStyle: TextStyle(
-                                fontSize: 13,
-                                color: Theme.of(context).primaryColor,
-                                letterSpacing: 1.0,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 16,
-                                vertical: 8,
-                              ),
-                              tabs: [
-                                GButton(
-                                  icon: MdiIcons.calendarOutline,
-                                  text: 'Forecast'.toUpperCase(),
-                                ),
-                                GButton(
-                                  icon: MdiIcons.radar,
-                                  text: 'Radar'.toUpperCase(),
-                                ),
-                                GButton(
-                                  icon: OMIcons.nearMe,
-                                  text: 'Locations'.toUpperCase(),
-                                ),
-                                GButton(
-                                  icon: MdiIcons.cogOutline,
-                                  text: 'Settings'.toUpperCase(),
-                                ),
-                              ],
-                              selectedIndex: _selectedIndex,
-                              onTabChange: (index) {
-                                setState(() => _selectedIndex = index);
-                              },
-                            ),
-                          ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black,
+                          spreadRadius: -20,
+                          blurRadius: 24,
                         ),
                       ],
+                    ),
+                    child: SafeArea(
+                      child: Column(
+                        children: [
+                          Spacer(),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(50),
+                                ),
+                              ),
+                              padding: EdgeInsets.all(10),
+                              child: GNav(
+                                gap: 8,
+                                iconSize: 28,
+                                activeColor: Theme.of(context).primaryColor,
+                                color: Theme.of(context).primaryColor,
+                                tabBackgroundColor: Theme.of(context)
+                                    .primaryColor
+                                    .withOpacity(.08),
+                                duration: Duration(milliseconds: 250),
+                                curve: Curves.easeInOut,
+                                textStyle: TextStyle(
+                                  fontSize: 13,
+                                  color: Theme.of(context).primaryColor,
+                                  letterSpacing: 1.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 16,
+                                  vertical: 8,
+                                ),
+                                tabs: [
+                                  GButton(
+                                    icon: SRLIcons.forecast_alt,
+                                    text: 'Forecast'.toUpperCase(),
+                                  ),
+                                  GButton(
+                                    icon: SRLIcons.radar,
+                                    text: 'Radar'.toUpperCase(),
+                                  ),
+                                  GButton(
+                                    icon: SRLIcons.locations,
+                                    text: 'Locations'.toUpperCase(),
+                                  ),
+                                  GButton(
+                                    icon: SRLIcons.settings,
+                                    text: 'Settings'.toUpperCase(),
+                                  ),
+                                ],
+                                selectedIndex: _selectedIndex,
+                                onTabChange: (index) {
+                                  setState(() => _selectedIndex = index);
+                                },
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
