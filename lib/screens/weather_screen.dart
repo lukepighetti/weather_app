@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:srl/extensions/num.dart';
 import 'package:srl/extensions/string.dart';
 import 'package:srl/extensions/open_weather_hourly_point.dart';
@@ -9,8 +8,8 @@ import 'package:srl/services/open_weather/models/all_weather_data.dart';
 import 'package:srl/services/open_weather/open_weather.dart';
 import 'package:srl/widgets/animated_icon.dart';
 import 'package:srl/widgets/dot_indicator.dart';
+import 'package:srl/widgets/srl_icons.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
-import 'package:outline_material_icons/outline_material_icons.dart';
 
 class WeatherScreen extends StatefulWidget {
   @override
@@ -75,7 +74,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Icon(
-                                MdiIcons.nearMe,
+                                SRLIcons.locations_filled,
                                 color: Theme.of(context).primaryColor,
                                 size: 18,
                               ),
@@ -193,19 +192,19 @@ class _WeatherScreenState extends State<WeatherScreen> {
                                 ),
                                 tabs: [
                                   GButton(
-                                    icon: MdiIcons.calendarOutline,
+                                    icon: SRLIcons.forecast_alt,
                                     text: 'Forecast'.toUpperCase(),
                                   ),
                                   GButton(
-                                    icon: MdiIcons.radar,
+                                    icon: SRLIcons.radar,
                                     text: 'Radar'.toUpperCase(),
                                   ),
                                   GButton(
-                                    icon: OMIcons.nearMe,
+                                    icon: SRLIcons.locations,
                                     text: 'Locations'.toUpperCase(),
                                   ),
                                   GButton(
-                                    icon: MdiIcons.cogOutline,
+                                    icon: SRLIcons.settings,
                                     text: 'Settings'.toUpperCase(),
                                   ),
                                 ],

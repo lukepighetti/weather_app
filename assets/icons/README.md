@@ -1,0 +1,1 @@
+The SVG assets are used to generate `SRLIcons.ttf` using https://fluttericon.com
