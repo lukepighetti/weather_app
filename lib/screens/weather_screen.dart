@@ -3,10 +3,12 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:srl/extensions/num.dart';
 import 'package:srl/extensions/string.dart';
+import 'package:srl/extensions/open_weather_hourly_point.dart';
 import 'package:srl/models/position.dart';
 import 'package:srl/services/open_weather/models/all_weather_data.dart';
 import 'package:srl/services/open_weather/open_weather.dart';
 import 'package:srl/widgets/animated_icon.dart';
+import 'package:srl/widgets/dot_indicator.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
 
@@ -54,17 +56,19 @@ class _WeatherScreenState extends State<WeatherScreen> {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          SizedBox(height: 4),
+                          SizedBox(height: 8),
 
                           /// Weather description, ie `Scattered Snow`
                           Text(
                             '${weatherCall.current.weather.description.toCapitalized()}',
                             style: TextStyle(
                               fontSize: 13,
-                              color: Colors.grey.shade500,
+                              color: Colors.grey.shade400,
+                              fontWeight: FontWeight.w600,
+                              fontFamily: "", // Use default system font
                             ),
                           ),
-                          SizedBox(height: 4),
+                          SizedBox(height: 8),
 
                           /// Location status?
                           Row(
@@ -73,8 +77,10 @@ class _WeatherScreenState extends State<WeatherScreen> {
                               Icon(
                                 MdiIcons.nearMe,
                                 color: Theme.of(context).primaryColor,
-                                size: 12,
+                                size: 18,
                               ),
+                              DotIndicator(),
+                              DotIndicator(),
                             ],
                           ),
                         ],
@@ -117,7 +123,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                             ],
                           ),
 
-                          /// Wind speed, ie `5 mph`
+                          /// Max/min temp, ie `24/8`
                           Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(999),
@@ -128,7 +134,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                               horizontal: 8,
                             ),
                             child: Text(
-                              "${weatherCall.current.windSpeed.round()}mph",
+                              "${weatherCall.hourly.maxTemp.asFahrenheit.round()}/${weatherCall.hourly.minTemp.asFahrenheit.round()}",
                               style: TextStyle(
                                 color: Colors.grey.shade500,
                               ),
