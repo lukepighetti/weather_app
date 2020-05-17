@@ -175,11 +175,15 @@ class _WeatherScreenState extends State<WeatherScreen> {
                       ],
                     ),
                     child: SafeArea(
+                      bottom: true,
+                      minimum: const EdgeInsets.only(bottom: 8.0),
                       child: Column(
                         children: [
                           Spacer(),
                           Padding(
-                            padding: const EdgeInsets.all(8.0),
+                            /// Bottom padding is handled by SafeArea.minimum
+                            padding: const EdgeInsets.all(8.0) -
+                                const EdgeInsets.only(bottom: 8.0),
                             child: Container(
                               decoration: BoxDecoration(
                                 color: Colors.white,
