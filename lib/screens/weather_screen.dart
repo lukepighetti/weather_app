@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:srl/extensions/color.dart';
 import 'package:srl/extensions/num.dart';
 import 'package:srl/extensions/string.dart';
 import 'package:srl/extensions/open_weather_hourly_point.dart';
@@ -62,9 +63,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                             '${weatherCall.current.weather.description.toCapitalized()}',
                             style: TextStyle(
                               fontSize: 16,
-                              color: Theme.of(context)
-                                  .primaryColor
-                                  .withOpacity(0.20),
+                              color: Theme.of(context).primaryColor.opacity200,
                               fontWeight: FontWeight.w700,
                               letterSpacing: 0.3,
                               fontFamily: "", // Use default system font
@@ -83,9 +82,8 @@ class _WeatherScreenState extends State<WeatherScreen> {
                               ),
                               for (var _ in [1, 2])
                                 DotIndicator(
-                                  color: Theme.of(context)
-                                      .primaryColor
-                                      .withOpacity(0.20),
+                                  color:
+                                      Theme.of(context).primaryColor.opacity200,
                                 ),
                             ],
                           ),
@@ -135,9 +133,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                           Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(999),
-                              color: Theme.of(context)
-                                  .primaryColor
-                                  .withOpacity(0.03),
+                              color: Theme.of(context).primaryColor.opacity50,
                             ),
                             padding: EdgeInsets.symmetric(
                               vertical: 4,
@@ -149,9 +145,8 @@ class _WeatherScreenState extends State<WeatherScreen> {
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
                                 letterSpacing: 1.0,
-                                color: Theme.of(context)
-                                    .primaryColor
-                                    .withOpacity(0.15),
+                                color:
+                                    Theme.of(context).primaryColor.opacity200,
                               ),
                             ),
                           ),
@@ -198,9 +193,8 @@ class _WeatherScreenState extends State<WeatherScreen> {
                                 iconSize: 28,
                                 activeColor: Theme.of(context).primaryColor,
                                 color: Theme.of(context).primaryColor,
-                                tabBackgroundColor: Theme.of(context)
-                                    .primaryColor
-                                    .withOpacity(.08),
+                                tabBackgroundColor:
+                                    Theme.of(context).primaryColor.opacity100,
                                 duration: Duration(milliseconds: 250),
                                 curve: Curves.easeInOut,
                                 textStyle: TextStyle(
