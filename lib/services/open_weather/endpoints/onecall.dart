@@ -21,6 +21,8 @@ class OpenWeatherOneCall {
 
   factory OpenWeatherOneCall.fromJson(Map<String, dynamic> json) =>
       _$OpenWeatherOneCallFromJson(json);
+
+  Map<String, dynamic> toJson() => _$OpenWeatherOneCallToJson(this);
 }
 
 @openWeatherJsonSerializable
@@ -54,6 +56,8 @@ class OpenWeatherHourlyPoint {
 
   factory OpenWeatherHourlyPoint.fromJson(Map<String, dynamic> json) =>
       _$OpenWeatherHourlyPointFromJson(json);
+
+  Map<String, dynamic> toJson() => _$OpenWeatherHourlyPointToJson(this);
 }
 
 @openWeatherJsonSerializable
@@ -97,4 +101,6 @@ class OpenWeatherCurrent implements OpenWeatherHourlyPoint {
 
   factory OpenWeatherCurrent.fromJson(Map<String, dynamic> json) =>
       _$OpenWeatherCurrentFromJson(json);
+
+  Map<String, dynamic> toJson() => _$OpenWeatherCurrentToJson(this);
 }

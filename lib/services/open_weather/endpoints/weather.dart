@@ -43,6 +43,7 @@ class CurrentWeather {
 
   factory CurrentWeather.fromJson(Map<String, dynamic> json) =>
       _$CurrentWeatherFromJson(json);
+  Map<String, dynamic> toJson() => _$CurrentWeatherToJson(this);
 }
 
 @openWeatherJsonSerializable
@@ -53,6 +54,7 @@ class Coordinates {
   Coordinates(this.lat, this.lon);
   factory Coordinates.fromJson(Map<String, dynamic> json) =>
       _$CoordinatesFromJson(json);
+  Map<String, dynamic> toJson() => _$CoordinatesToJson(this);
 }
 
 @openWeatherJsonSerializable
@@ -68,6 +70,7 @@ class MainWeather {
       this.pressure, this.humidity);
   factory MainWeather.fromJson(Map<String, dynamic> json) =>
       _$MainWeatherFromJson(json);
+  Map<String, dynamic> toJson() => _$MainWeatherToJson(this);
 }
 
 @openWeatherJsonSerializable
@@ -77,6 +80,7 @@ class Wind {
 
   Wind(this.speed, this.deg);
   factory Wind.fromJson(Map<String, dynamic> json) => _$WindFromJson(json);
+  Map<String, dynamic> toJson() => _$WindToJson(this);
 }
 
 @openWeatherJsonSerializable
@@ -85,6 +89,7 @@ class Clouds {
 
   Clouds(this.all);
   factory Clouds.fromJson(Map<String, dynamic> json) => _$CloudsFromJson(json);
+  Map<String, dynamic> toJson() => _$CloudsToJson(this);
 }
 
 @openWeatherJsonSerializable
@@ -101,4 +106,5 @@ class Sys {
 
   Sys(this.type, this.id, this.country, this.sunrise, this.sunset);
   factory Sys.fromJson(Map<String, dynamic> json) => _$SysFromJson(json);
+  Map<String, dynamic> toJson() => _$SysToJson(this);
 }

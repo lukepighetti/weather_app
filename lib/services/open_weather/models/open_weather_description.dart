@@ -13,4 +13,6 @@ class OpenWeatherDescription {
 
   factory OpenWeatherDescription.fromJson(Map<String, dynamic> json) =>
       _$OpenWeatherDescriptionFromJson(json);
+
+  Map<String, dynamic> toJson() => _$OpenWeatherDescriptionToJson(this);
 }
