@@ -78,7 +78,9 @@ class FooService
 
   FooService(this.sharedPreferences);
 
-  Stream<Foo> getFoo() async* {
+  /// Methods on our service class stitch together our features
+  /// into a rich and opinionated API.
+  Stream<Foo> latestFoo() async* {
     Foo foo;
 
     /// Fetch & yield from storage
