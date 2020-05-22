@@ -11,7 +11,11 @@ We do YouTube livestreams every week, alternating between [Luke Pighetti](https:
 
 ## Technology
 
+- [OpenWeather](https://openweathermap.org) for weather data
 - `states_rebuilder` for dependency injection & state management
+- `lottie` for animations
+- `shared_preferences` for persistence
+- `http` for fetching
 
 ## Attribution
 
