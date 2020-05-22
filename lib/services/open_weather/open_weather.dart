@@ -1,61 +1,46 @@
-import 'dart:convert';
-
 import 'package:flutter/foundation.dart';
-import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:srl/models/position.dart';
 import 'package:srl/services/app_config/app_config.dart';
 import 'package:srl/services/open_weather/endpoints/onecall.dart';
 import 'package:srl/services/open_weather/endpoints/weather.dart';
+import 'package:srl/services/open_weather/features/fetching.dart';
+import 'package:srl/services/open_weather/features/persistence.dart';
 import 'package:srl/services/open_weather/models/all_weather_data.dart';
 
-class OpenWeather {
-  final AppConfig config;
+class OpenWeather
+    with
+        OpenWeatherFetchingDependencies,
+        OpenWeatherFetching,
+        OpenWeatherPersistenceDependencies,
+        OpenWeatherPersistence {
+  final AppConfig appConfig;
 
-  OpenWeather({@required this.config});
+  final SharedPreferences sharedPreferences;
 
-  /// A convenience getter for fetching [OpenWeatherOneCall] and [CurrentWeather]
-  Future<AllWeatherData> getAllWeatherData(Position position) async {
+  OpenWeather({@required this.appConfig, @required this.sharedPreferences});
+
+  /// An offline-ready getter for fetching [OpenWeatherOneCall] and [CurrentWeather]
+  Stream<AllWeatherData> getAllWeatherData(Position position) async* {
     OpenWeatherOneCall oneCall;
     CurrentWeather currentWeather;
 
-    /// A type safe way to perform futures in parallel
+    /// Fetch & yield from storage
+    oneCall = hydrateOpenWeatherOneCall();
+    currentWeather = hydrateCurrentWeather();
+
+    if (oneCall != null && currentWeather != null)
+      yield AllWeatherData(oneCall, currentWeather);
+
+    /// Fetch & yield from network
     await Future.wait([
       getWeatherOneCall(position).then((e) => oneCall = e),
       getCurrentWeather(position).then((e) => currentWeather = e),
     ]);
 
-    return AllWeatherData(oneCall, currentWeather);
-  }
+    persistOpenWeatherOneCall(oneCall);
+    persistCurrentWeather(currentWeather);
 
-  /// Get the latest [OpenWeatherOneCall]
-  Future<OpenWeatherOneCall> getWeatherOneCall(Position position) async {
-    final uri =
-        Uri.parse("https://api.openweathermap.org/data/2.5/onecall").replace(
-      queryParameters: {
-        "lat": "${position.latitude}",
-        "lon": "${position.longitude}",
-        "appid": config.openWeatherApiKey,
-      },
-    );
-
-    final response = await http.get(uri);
-    final json = jsonDecode(response.body);
-    return OpenWeatherOneCall.fromJson(json);
-  }
-
-  /// Get the latest [CurrentWeather]
-  Future<CurrentWeather> getCurrentWeather(Position position) async {
-    final uri =
-        Uri.parse("https://api.openweathermap.org/data/2.5/weather").replace(
-      queryParameters: {
-        "lat": "${position.latitude}",
-        "lon": "${position.longitude}",
-        "appid": config.openWeatherApiKey,
-      },
-    );
-
-    final response = await http.get(uri);
-    final json = jsonDecode(response.body);
-    return CurrentWeather.fromJson(json);
+    yield AllWeatherData(oneCall, currentWeather);
   }
 }

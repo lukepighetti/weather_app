@@ -25,7 +25,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
       body: SafeArea(
         bottom: false,
         child: WhenRebuilder<AllWeatherData>(
-          observe: () => RM.future(
+          observe: () => RM.stream(
               IN.get<OpenWeather>().getAllWeatherData(Position.baltimore())),
           onIdle: () => Center(child: Text("We're waiting for the weather!")),
           onWaiting: () => Center(child: CircularProgressIndicator()),

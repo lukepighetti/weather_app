@@ -15,3 +15,12 @@ OpenWeatherDescription _$OpenWeatherDescriptionFromJson(
     json['icon'] as String,
   );
 }
+
+Map<String, dynamic> _$OpenWeatherDescriptionToJson(
+        OpenWeatherDescription instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'main': instance.main,
+      'description': instance.description,
+      'icon': instance.icon,
+    };

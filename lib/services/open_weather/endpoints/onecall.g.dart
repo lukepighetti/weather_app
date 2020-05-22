@@ -22,6 +22,15 @@ OpenWeatherOneCall _$OpenWeatherOneCallFromJson(Map<String, dynamic> json) {
   );
 }
 
+Map<String, dynamic> _$OpenWeatherOneCallToJson(OpenWeatherOneCall instance) =>
+    <String, dynamic>{
+      'lat': instance.lat,
+      'lon': instance.lon,
+      'timezone': instance.timezone,
+      'current': instance.current,
+      'hourly': instance.hourly,
+    };
+
 OpenWeatherHourlyPoint _$OpenWeatherHourlyPointFromJson(
     Map<String, dynamic> json) {
   return OpenWeatherHourlyPoint(
@@ -37,6 +46,21 @@ OpenWeatherHourlyPoint _$OpenWeatherHourlyPointFromJson(
     openWeatherDescriptionFrom(json['weather'] as List),
   );
 }
+
+Map<String, dynamic> _$OpenWeatherHourlyPointToJson(
+        OpenWeatherHourlyPoint instance) =>
+    <String, dynamic>{
+      'dt': openWeatherDateTimeTo(instance.dt),
+      'temp': instance.temp,
+      'feels_like': instance.feelsLike,
+      'pressure': instance.pressure,
+      'humidity': instance.humidity,
+      'dew_point': instance.dewPoint,
+      'clouds': instance.clouds,
+      'wind_speed': instance.windSpeed,
+      'wind_deg': instance.windDeg,
+      'weather': openWeatherDescriptionTo(instance.weather),
+    };
 
 OpenWeatherCurrent _$OpenWeatherCurrentFromJson(Map<String, dynamic> json) {
   return OpenWeatherCurrent(
@@ -56,3 +80,21 @@ OpenWeatherCurrent _$OpenWeatherCurrentFromJson(Map<String, dynamic> json) {
     openWeatherDescriptionFrom(json['weather'] as List),
   );
 }
+
+Map<String, dynamic> _$OpenWeatherCurrentToJson(OpenWeatherCurrent instance) =>
+    <String, dynamic>{
+      'dt': openWeatherDateTimeTo(instance.dt),
+      'sunrise': openWeatherDateTimeTo(instance.sunrise),
+      'sunset': openWeatherDateTimeTo(instance.sunset),
+      'temp': instance.temp,
+      'feels_like': instance.feelsLike,
+      'pressure': instance.pressure,
+      'humidity': instance.humidity,
+      'dew_point': instance.dewPoint,
+      'uvi': instance.uvi,
+      'clouds': instance.clouds,
+      'visibility': instance.visibility,
+      'wind_speed': instance.windSpeed,
+      'wind_deg': instance.windDeg,
+      'weather': openWeatherDescriptionTo(instance.weather),
+    };
