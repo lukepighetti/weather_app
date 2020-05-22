@@ -6,6 +6,7 @@ import 'package:srl/services/open_weather/endpoints/onecall.dart';
 import 'package:srl/services/open_weather/endpoints/weather.dart';
 import 'package:srl/services/open_weather/features/fetching.dart';
 import 'package:srl/services/open_weather/features/persistence.dart';
+import 'package:srl/services/open_weather/features/polling.dart';
 import 'package:srl/services/open_weather/models/all_weather_data.dart';
 
 class OpenWeather
@@ -13,7 +14,9 @@ class OpenWeather
         OpenWeatherFetchingDependencies,
         OpenWeatherFetching,
         OpenWeatherPersistenceDependencies,
-        OpenWeatherPersistence {
+        OpenWeatherPersistence,
+        OpenWeatherPollingDependencies,
+        OpenWeatherPolling {
   final AppConfig appConfig;
 
   final SharedPreferences sharedPreferences;
@@ -42,5 +45,20 @@ class OpenWeather
     persistCurrentWeather(currentWeather);
 
     yield AllWeatherData(oneCall, currentWeather);
+
+    /// Fetch & yield periodically
+    await for (var shouldPoll in shouldPollWeather()) {
+      if (shouldPoll == false) continue;
+
+      await Future.wait([
+        getWeatherOneCall(position).then((e) => oneCall = e),
+        getCurrentWeather(position).then((e) => currentWeather = e),
+      ]);
+
+      persistOpenWeatherOneCall(oneCall);
+      persistCurrentWeather(currentWeather);
+
+      yield AllWeatherData(oneCall, currentWeather);
+    }
   }
 }

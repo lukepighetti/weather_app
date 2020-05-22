@@ -8,6 +8,8 @@ abstract class OpenWeatherPersistenceDependencies {
   SharedPreferences get sharedPreferences;
 }
 
+/// Primarily used for offline mode, the persistence feature
+/// allows storing and retreiving data from the local device.
 mixin OpenWeatherPersistence on OpenWeatherPersistenceDependencies {
   /// [OpenWeatherOneCall]
   static const _openWeatherOneCallKey =

@@ -10,6 +10,7 @@ abstract class OpenWeatherFetchingDependencies {
   AppConfig get appConfig;
 }
 
+/// Used to fetch new data from the network
 mixin OpenWeatherFetching on OpenWeatherFetchingDependencies {
   /// Get the latest [OpenWeatherOneCall]
   Future<OpenWeatherOneCall> getWeatherOneCall(Position position) async {
