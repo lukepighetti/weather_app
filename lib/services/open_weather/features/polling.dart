@@ -6,9 +6,10 @@ abstract class OpenWeatherPollingDependencies {}
 mixin OpenWeatherPolling on OpenWeatherPollingDependencies {
   static const _pollingInterval = Duration(seconds: 60);
 
-  Stream<bool> shouldPollWeather() async* {
+  /// Emits an event whenever we should refresh our weather
+  Stream onStaleWeather() async* {
     await for (var _ in Stream.periodic(_pollingInterval)) {
-      yield true;
+      yield null;
     }
   }
 }

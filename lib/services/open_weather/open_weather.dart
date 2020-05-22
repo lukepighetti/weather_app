@@ -47,9 +47,7 @@ class OpenWeather
     yield AllWeatherData(oneCall, currentWeather);
 
     /// Fetch & yield periodically
-    await for (var shouldPoll in shouldPollWeather()) {
-      if (shouldPoll == false) continue;
-
+    await for (var _ in onStaleWeather()) {
       await Future.wait([
         getWeatherOneCall(position).then((e) => oneCall = e),
         getCurrentWeather(position).then((e) => currentWeather = e),

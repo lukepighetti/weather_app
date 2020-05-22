@@ -6,10 +6,9 @@ Instead of struggling with the responsibility of multiple service-like classes,
 we simply write "features" as mixins and then create a single service that binds
 these features together. It's also easy to test subsections of your service.
 
-You can imagine features like `fetching`, `persistence`, and `caching`. Where
-fetching is used to make network calls, persistence is used for offline storage,
-and caching is used to determine if we need to poll the network for fresh data
-or not.
+You can imagine features like `fetching`, `persistence`, and `polling`, where
+fetching makes network calls, persistence handles offline storage, and polling 
+fires an event whenever we need to poll the network for fresh data.
 
 The composition pattern is as such.
 
