@@ -8,6 +8,7 @@ We do YouTube livestreams every week, alternating between [Luke Pighetti](https:
 
 - [Episode 1](https://www.youtube.com/watch?v=69CRtlNCir8) Setting up `states_rebuilder` and OpenWeather API
 - [Episode 2](https://www.youtube.com/watch?v=n57LIu_Scx0) Adding design spec, lottie files, and building WeatherScreen
+- [Episode 3](https://www.youtube.com/watch?v=HAf4h5NtqD8) Hourly weather, scroll transitions
 
 ## Technology
 

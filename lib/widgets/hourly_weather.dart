@@ -96,7 +96,7 @@ class _HourlyWeatherState extends State<HourlyWeather> {
                       children: [
                         /// Time
                         Text(
-                          hourlyData.dt.asHour,
+                          hourlyData.dt.ashhmm,
                           style: TextStyle(
                             fontSize: 16,
                             color: Colors.white.opacity900,
