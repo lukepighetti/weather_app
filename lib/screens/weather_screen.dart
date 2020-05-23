@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
+import 'package:srl/extensions/adapters.dart';
 import 'package:srl/extensions/color.dart';
 import 'package:srl/extensions/num.dart';
 import 'package:srl/extensions/open_weather_hourly_point.dart';
@@ -93,7 +94,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
 
                       /// Weather icon
                       SRLAnimatedIcon(
-                        type: AnimatedIconType.snow,
+                        type: weatherCall.current.weather.icon.asAnimatedIcon,
                         dimension: 196,
                       ),
 

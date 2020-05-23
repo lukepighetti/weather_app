@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:srl/extensions/adapters.dart';
 import 'package:srl/extensions/color.dart';
 import 'package:srl/extensions/date_time.dart';
 import 'package:srl/extensions/string.dart';
@@ -81,7 +82,7 @@ class _HourlyWeatherState extends State<HourlyWeather> {
                     child: Opacity(
                       opacity: 0.25 + transition.visibility * 0.75,
                       child: SRLAnimatedIcon(
-                        type: AnimatedIconType.cloudy,
+                        type: hourlyData.weather.icon.asAnimatedIcon,
                         dimension: 100 -
                             25.0 * curve.transform(transition.invisibility),
                       ),
