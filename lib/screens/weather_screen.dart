@@ -9,6 +9,7 @@ import 'package:srl/services/open_weather/models/all_weather_data.dart';
 import 'package:srl/services/open_weather/open_weather.dart';
 import 'package:srl/widgets/animated_icon.dart';
 import 'package:srl/widgets/dot_indicator.dart';
+import 'package:srl/widgets/hourly_weather.dart';
 import 'package:srl/widgets/srl_icons.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
 
@@ -179,7 +180,9 @@ class _WeatherScreenState extends State<WeatherScreen> {
                       minimum: const EdgeInsets.only(bottom: 8.0),
                       child: Column(
                         children: [
-                          Spacer(),
+                          Expanded(
+                            child: HourlyWeather(oneCall: weatherCall),
+                          ),
                           Padding(
                             /// Bottom padding is handled by SafeArea.minimum
                             padding: const EdgeInsets.all(8.0) -
