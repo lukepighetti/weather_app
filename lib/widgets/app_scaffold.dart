@@ -5,6 +5,7 @@ class AppScaffold extends StatelessWidget {
     @required this.pages,
     @required this.currentIndex,
     @required this.bottomNavigationBar,
+    @required this.bottomNavigationBarHeight,
   });
 
   /// The pages to display
@@ -15,6 +16,9 @@ class AppScaffold extends StatelessWidget {
 
   /// The bottom navigation bar to display
   final Widget bottomNavigationBar;
+
+  /// The height of the bottom navigation bar
+  final double bottomNavigationBarHeight;
 
   /// The page transition duration
   final _duration = Duration(milliseconds: 300);
@@ -27,23 +31,13 @@ class AppScaffold extends StatelessWidget {
     return Stack(
       children: [
         /// Background
-        Stack(
-          children: [
-            for (var page in pages)
-              AnimatedOpacity(
-                opacity: pages.indexOf(page) == currentIndex ? 1.0 : 0.0,
-                duration: _duration,
-                curve: _curve,
-                child: page.background,
-              ),
-          ],
-        ),
-
-        /// Foreground
         AnimatedContainer(
-          height: pages[currentIndex].foregroundHeight,
-          curve: _curve,
           duration: _duration,
+          curve: _curve,
+          padding: EdgeInsets.only(
+            bottom: pages[currentIndex].foregroundHeight +
+                bottomNavigationBarHeight,
+          ),
           child: Stack(
             children: [
               for (var page in pages)
@@ -51,13 +45,57 @@ class AppScaffold extends StatelessWidget {
                   opacity: pages.indexOf(page) == currentIndex ? 1.0 : 0.0,
                   duration: _duration,
                   curve: _curve,
-                  child: page.foreground,
+                  child: page.background,
                 ),
-
-              /// Navigation bar
-              bottomNavigationBar ?? SizedBox.shrink(),
             ],
           ),
+        ),
+
+        /// Foreground
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: AnimatedContainer(
+            height: pages[currentIndex].foregroundHeight +
+                bottomNavigationBarHeight,
+            curve: _curve,
+            duration: _duration,
+            decoration: BoxDecoration(
+              color: Theme.of(context).primaryColor,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(36),
+                topRight: Radius.circular(36),
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black,
+                  spreadRadius: -20,
+                  blurRadius: 24,
+                ),
+              ],
+            ),
+            child: AnimatedContainer(
+              duration: _duration,
+              curve: _curve,
+              padding: EdgeInsets.only(bottom: bottomNavigationBarHeight),
+              child: Stack(
+                children: [
+                  for (var page in pages)
+                    AnimatedOpacity(
+                      opacity: pages.indexOf(page) == currentIndex ? 1.0 : 0.0,
+                      duration: _duration,
+                      curve: _curve,
+                      child: page.foreground,
+                    ),
+                ],
+              ),
+            ),
+          ),
+        ),
+
+        /// Navigation bar
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: bottomNavigationBar ?? SizedBox.shrink(),
         ),
       ],
     );
