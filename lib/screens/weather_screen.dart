@@ -95,7 +95,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                       /// Weather icon
                       SRLAnimatedIcon(
                         type: weatherCall.current.weather.icon.asAnimatedIcon,
-                        dimension: 196,
+                        dimension: 189,
                       ),
 
                       /// Temperature & wind speed
