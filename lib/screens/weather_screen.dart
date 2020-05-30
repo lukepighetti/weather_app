@@ -49,9 +49,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                   foregroundHeight: 180,
                 ),
                 AppScaffoldPage(
-                  background: Placeholder(
-                    color: Colors.red,
-                  ),
+                  background: Placeholder(color: Colors.red),
                   foreground: Placeholder(color: Colors.red),
                   foregroundHeight: 240,
                 ),
@@ -63,11 +61,12 @@ class _WeatherScreenState extends State<WeatherScreen> {
                 AppScaffoldPage(
                   background: Placeholder(color: Colors.green),
                   foreground: Placeholder(color: Colors.green),
-                  foregroundHeight: 400,
+                  foregroundHeight: MediaQuery.of(context).size.height,
+                  borderRadius: Radius.zero,
                 ),
               ],
-              bottomNavigationBar: buildBottomBar(),
               bottomNavigationBarHeight: 80,
+              bottomNavigationBar: buildBottomBar(),
             );
           },
         ),
