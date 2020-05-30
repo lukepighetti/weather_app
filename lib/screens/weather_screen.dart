@@ -48,6 +48,23 @@ class _WeatherScreenState extends State<WeatherScreen> {
                   foreground: HourlyWeather(oneCall: weatherCall),
                   foregroundHeight: 180,
                 ),
+                AppScaffoldPage(
+                  background: Placeholder(
+                    color: Colors.red,
+                  ),
+                  foreground: Placeholder(color: Colors.red),
+                  foregroundHeight: 240,
+                ),
+                AppScaffoldPage(
+                  background: Placeholder(color: Colors.blue),
+                  foreground: Placeholder(color: Colors.blue),
+                  foregroundHeight: 120,
+                ),
+                AppScaffoldPage(
+                  background: Placeholder(color: Colors.green),
+                  foreground: Placeholder(color: Colors.green),
+                  foregroundHeight: 400,
+                ),
               ],
               bottomNavigationBar: buildBottomBar(),
               bottomNavigationBarHeight: 80,
