@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+/// An opinionated app specific scaffold that
+/// transitions foreground height and pages
 class AppScaffold extends StatelessWidget {
   AppScaffold({
     @required this.pages,
@@ -61,9 +63,8 @@ class AppScaffold extends StatelessWidget {
             duration: _duration,
             decoration: BoxDecoration(
               color: Theme.of(context).primaryColor,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(36),
-                topRight: Radius.circular(36),
+              borderRadius: BorderRadius.vertical(
+                top: pages[currentIndex].borderRadius ?? Radius.circular(36),
               ),
               boxShadow: [
                 BoxShadow(
@@ -108,9 +109,11 @@ class AppScaffoldPage {
     @required this.background,
     @required this.foreground,
     @required this.foregroundHeight,
+    this.borderRadius,
   });
 
   final Widget background;
   final Widget foreground;
   final double foregroundHeight;
+  final Radius borderRadius;
 }
