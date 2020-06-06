@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:srl/extensions/color.dart';
 
 /// A custom "ListTile" with a platform aware Switch widget. (Why don't we use SwitchListTile.adaptive? GREAT QUESTION lol)
 class SettingsListTile extends StatefulWidget {
@@ -24,12 +26,20 @@ class _SettingsListTileState extends State<SettingsListTile> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(widget.text),
-          Switch.adaptive(
+          Text(
+            widget.text,
+            style: TextStyle(
+              fontFamily: "",
+              color: Colors.white.opacity700,
+              letterSpacing: 0.5,
+            ),
+          ),
+          CupertinoSwitch(
             activeColor: Theme.of(context).accentColor,
+            trackColor: Colors.black.opacity100,
             value: _selected,
-            onChanged: (bool) {
-              setState(() => _selected = bool);
+            onChanged: (e) {
+              setState(() => _selected = e);
             },
           ),
         ],

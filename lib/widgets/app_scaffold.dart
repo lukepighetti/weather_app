@@ -31,6 +31,8 @@ class AppScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bottomInset = MediaQuery.of(context).padding.bottom / 2;
+
     return Stack(
       children: [
         /// Background
@@ -40,9 +42,9 @@ class AppScaffold extends StatelessWidget {
             duration: _duration,
             curve: _curve,
             padding: EdgeInsets.only(
-              bottom: pages[currentIndex].foregroundHeight +
-                  bottomNavigationBarHeight,
-            ),
+                bottom: pages[currentIndex].foregroundHeight +
+                    bottomNavigationBarHeight +
+                    bottomInset),
             child: SafeArea(
               bottom: false,
               child: Stack(
@@ -67,7 +69,8 @@ class AppScaffold extends StatelessWidget {
             value: SystemUiOverlayStyle.light,
             child: AnimatedContainer(
               height: pages[currentIndex].foregroundHeight +
-                  bottomNavigationBarHeight,
+                  bottomNavigationBarHeight +
+                  bottomInset,
               curve: _curve,
               duration: _duration,
               decoration: BoxDecoration(
@@ -86,7 +89,8 @@ class AppScaffold extends StatelessWidget {
               child: AnimatedContainer(
                 duration: _duration,
                 curve: _curve,
-                padding: EdgeInsets.only(bottom: bottomNavigationBarHeight) +
+                padding: EdgeInsets.only(
+                        bottom: bottomNavigationBarHeight + bottomInset) +
                     pages[currentIndex].foregroundPadding,
                 child: Stack(
                   children: [
@@ -108,7 +112,12 @@ class AppScaffold extends StatelessWidget {
         /// Navigation bar
         Align(
           alignment: Alignment.bottomCenter,
-          child: bottomNavigationBar ?? SizedBox.shrink(),
+          child: AnimatedContainer(
+            duration: _duration,
+            curve: _curve,
+            padding: EdgeInsets.only(bottom: bottomInset),
+            child: bottomNavigationBar ?? SizedBox.shrink(),
+          ),
         ),
       ],
     );
