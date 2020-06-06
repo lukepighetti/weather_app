@@ -13,6 +13,7 @@ import 'package:srl/widgets/animated_icon.dart';
 import 'package:srl/widgets/app_scaffold.dart';
 import 'package:srl/widgets/dot_indicator.dart';
 import 'package:srl/widgets/hourly_weather.dart';
+import 'package:srl/widgets/settings_page.dart';
 import 'package:srl/widgets/srl_icons.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
 
@@ -26,50 +27,50 @@ class _WeatherScreenState extends State<WeatherScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        bottom: false,
-        child: WhenRebuilder<AllWeatherData>(
-          observe: () => RM.stream(
-              IN.get<OpenWeather>().getAllWeatherData(Position.baltimore())),
-          onIdle: () => Center(child: Text("We're waiting for the weather!")),
-          onWaiting: () => Center(child: CircularProgressIndicator()),
-          onError: (error) => Center(child: Text("$error")),
-          onData: (allWeather) {
-            final weatherCall = allWeather.oneCall;
-            final locationName = allWeather.currentWeather.name;
+      body: WhenRebuilder<AllWeatherData>(
+        observe: () => RM.stream(
+            IN.get<OpenWeather>().getAllWeatherData(Position.baltimore())),
+        onIdle: () => Center(child: Text("We're waiting for the weather!")),
+        onWaiting: () => Center(child: CircularProgressIndicator()),
+        onError: (error) => Center(child: Text("$error")),
+        onData: (allWeather) {
+          final weatherCall = allWeather.oneCall;
+          final locationName = allWeather.currentWeather.name;
 
-            if (weatherCall == null) return SizedBox.shrink();
+          if (weatherCall == null) return SizedBox.shrink();
 
-            return AppScaffold(
-              currentIndex: _selectedIndex,
-              pages: [
-                AppScaffoldPage(
-                  background: buildWeatherBackground(weatherCall, locationName),
-                  foreground: HourlyWeather(oneCall: weatherCall),
-                  foregroundHeight: 180,
+          return AppScaffold(
+            currentIndex: _selectedIndex,
+            pages: [
+              AppScaffoldPage(
+                background: buildWeatherBackground(weatherCall, locationName),
+                foreground: HourlyWeather(oneCall: weatherCall),
+                foregroundHeight: 180,
+              ),
+              AppScaffoldPage(
+                background: Placeholder(color: Colors.red),
+                foreground: Placeholder(color: Colors.red),
+                foregroundHeight: 240,
+              ),
+              AppScaffoldPage(
+                background: Placeholder(color: Colors.blue),
+                foreground: Placeholder(color: Colors.blue),
+                foregroundHeight: 120,
+              ),
+              AppScaffoldPage(
+                background: Placeholder(color: Colors.green),
+                foreground: SettingsPage(),
+                foregroundHeight: MediaQuery.of(context).size.height,
+                borderRadius: Radius.zero,
+                foregroundPadding: EdgeInsets.only(
+                  top: MediaQuery.of(context).padding.top,
                 ),
-                AppScaffoldPage(
-                  background: Placeholder(color: Colors.red),
-                  foreground: Placeholder(color: Colors.red),
-                  foregroundHeight: 240,
-                ),
-                AppScaffoldPage(
-                  background: Placeholder(color: Colors.blue),
-                  foreground: Placeholder(color: Colors.blue),
-                  foregroundHeight: 120,
-                ),
-                AppScaffoldPage(
-                  background: Placeholder(color: Colors.green),
-                  foreground: Placeholder(color: Colors.green),
-                  foregroundHeight: MediaQuery.of(context).size.height,
-                  borderRadius: Radius.zero,
-                ),
-              ],
-              bottomNavigationBarHeight: 80,
-              bottomNavigationBar: buildBottomBar(),
-            );
-          },
-        ),
+              ),
+            ],
+            bottomNavigationBarHeight: 80,
+            bottomNavigationBar: buildBottomBar(),
+          );
+        },
       ),
     );
   }

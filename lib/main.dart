@@ -57,7 +57,7 @@ class SRWeatherApp extends StatelessWidget {
       theme: ThemeData(
         fontFamily: "Brandon",
         primaryColor: Color(0xff0303D3),
-        accentColor: Color(0xff4944D5),
+        accentColor: Color(0xff00EDFC),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       darkTheme: ThemeData(
