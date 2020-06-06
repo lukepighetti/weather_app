@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 /// An opinionated app specific scaffold that
 /// transitions foreground height and pages
@@ -33,55 +34,17 @@ class AppScaffold extends StatelessWidget {
     return Stack(
       children: [
         /// Background
-        AnimatedContainer(
-          duration: _duration,
-          curve: _curve,
-          padding: EdgeInsets.only(
-            bottom: pages[currentIndex].foregroundHeight +
-                bottomNavigationBarHeight,
-          ),
-          child: SafeArea(
-            bottom: false,
-            child: Stack(
-              children: [
-                for (var page in pages)
-                  AnimatedOpacity(
-                    opacity: pages.indexOf(page) == currentIndex ? 1.0 : 0.0,
-                    duration: _duration,
-                    curve: _curve,
-                    child: page.background,
-                  ),
-              ],
-            ),
-          ),
-        ),
-
-        /// Foreground
-        Align(
-          alignment: Alignment.bottomCenter,
+        AnnotatedRegion(
+          value: SystemUiOverlayStyle.dark,
           child: AnimatedContainer(
-            height: pages[currentIndex].foregroundHeight +
-                bottomNavigationBarHeight,
-            curve: _curve,
             duration: _duration,
-            decoration: BoxDecoration(
-              color: Theme.of(context).primaryColor,
-              borderRadius: BorderRadius.vertical(
-                top: pages[currentIndex].borderRadius ?? Radius.circular(36),
-              ),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black,
-                  spreadRadius: -20,
-                  blurRadius: 24,
-                ),
-              ],
+            curve: _curve,
+            padding: EdgeInsets.only(
+              bottom: pages[currentIndex].foregroundHeight +
+                  bottomNavigationBarHeight,
             ),
-            child: AnimatedContainer(
-              duration: _duration,
-              curve: _curve,
-              padding: EdgeInsets.only(bottom: bottomNavigationBarHeight) +
-                  pages[currentIndex].foregroundPadding,
+            child: SafeArea(
+              bottom: false,
               child: Stack(
                 children: [
                   for (var page in pages)
@@ -89,9 +52,54 @@ class AppScaffold extends StatelessWidget {
                       opacity: pages.indexOf(page) == currentIndex ? 1.0 : 0.0,
                       duration: _duration,
                       curve: _curve,
-                      child: page.foreground,
+                      child: page.background,
                     ),
                 ],
+              ),
+            ),
+          ),
+        ),
+
+        /// Foreground
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: AnnotatedRegion(
+            value: SystemUiOverlayStyle.light,
+            child: AnimatedContainer(
+              height: pages[currentIndex].foregroundHeight +
+                  bottomNavigationBarHeight,
+              curve: _curve,
+              duration: _duration,
+              decoration: BoxDecoration(
+                color: Theme.of(context).primaryColor,
+                borderRadius: BorderRadius.vertical(
+                  top: pages[currentIndex].borderRadius ?? Radius.circular(36),
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black,
+                    spreadRadius: -20,
+                    blurRadius: 24,
+                  ),
+                ],
+              ),
+              child: AnimatedContainer(
+                duration: _duration,
+                curve: _curve,
+                padding: EdgeInsets.only(bottom: bottomNavigationBarHeight) +
+                    pages[currentIndex].foregroundPadding,
+                child: Stack(
+                  children: [
+                    for (var page in pages)
+                      AnimatedOpacity(
+                        opacity:
+                            pages.indexOf(page) == currentIndex ? 1.0 : 0.0,
+                        duration: _duration,
+                        curve: _curve,
+                        child: page.foreground,
+                      ),
+                  ],
+                ),
               ),
             ),
           ),
