@@ -13,7 +13,7 @@ import 'package:srl/widgets/animated_icon.dart';
 import 'package:srl/widgets/app_scaffold.dart';
 import 'package:srl/widgets/dot_indicator.dart';
 import 'package:srl/widgets/hourly_weather.dart';
-import 'package:srl/widgets/settings_list_tile.dart';
+import 'package:srl/widgets/settings_page.dart';
 import 'package:srl/widgets/srl_icons.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
 
@@ -59,22 +59,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
               ),
               AppScaffoldPage(
                 background: Placeholder(color: Colors.green),
-                foreground: DefaultTextStyle(
-                  style: TextStyle(
-                    color: Colors.white,
-                  ),
-                  child: Column(
-                    children: [
-                      Expanded(
-                        child: Center(
-                          child: Text('Test'),
-                        ),
-                      ),
-                      for (var text in ["Autoplay Radar", "Icon Animations"])
-                        SettingsListTile(text: text),
-                    ],
-                  ),
-                ),
+                foreground: SettingsPage(),
                 foregroundHeight: MediaQuery.of(context).size.height,
                 borderRadius: Radius.zero,
                 foregroundPadding: EdgeInsets.only(

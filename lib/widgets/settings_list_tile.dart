@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// A custom "ListTile" with a platform aware Switch widget. (Why don't we use SwitchListTile.adaptive? GREAT QUESTION lol)
 class SettingsListTile extends StatefulWidget {
   const SettingsListTile({
     Key key,
