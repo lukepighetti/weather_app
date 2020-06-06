@@ -9,6 +9,8 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var _selectedUnit = _SelectedUnit.f;
+
     return DefaultTextStyle(
       style: TextStyle(
         color: Colors.white,
@@ -27,47 +29,52 @@ class SettingsPage extends StatelessWidget {
                   color: Colors.black.opacity100,
                   borderRadius: BorderRadius.circular(36),
                 ),
-                child: DefaultTextStyle(
-                  style: TextStyle(
-                    color: Colors.black,
-                  ),
-                  child: Stack(
-                    children: [
-                      /// Temp setting selector
-                      /// - Will need to animate over the temp selections
-                      /// - Will need to set the temp selection colors based on current selection
-                      /// - Align the selector properly
-                      /// - Persist selection
-                      Positioned(
-                        child: Container(
-                          width: 125,
-                          height: 125,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(36),
-                          ),
-                        ),
-                      ),
+                child: Builder(
+                  builder: (context) {
+                    final width = 125.0;
 
-                      /// Lays out the temp selections
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    return SizedBox(
+                      child: Stack(
                         children: [
-                          for (var text in ['F', 'C', 'K']) ...[
-                            Center(
-                              child: Text(
-                                text,
-                                style: TextStyle(
-                                  fontSize: 40,
-                                  color: Colors.blue,
-                                ),
-                              ),
+                          /// Temp setting selector
+                          /// - Will need to animate over the temp selections
+                          /// - Will need to set the temp selection colors based on current selection
+                          /// - Align the selector properly
+                          /// - Persist selection
+                          Container(
+                            width: width,
+                            height: width,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(36),
                             ),
-                          ],
+                          ),
+
+                          /// Lays out the temp selections
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              for (var unit in _SelectedUnit.values)
+                                SizedBox.fromSize(
+                                  size: Size.square(width),
+                                  child: Center(
+                                    child: Text(
+                                      unit.text,
+                                      style: TextStyle(
+                                        fontSize: 40,
+                                        color: _selectedUnit == unit
+                                            ? Colors.blue
+                                            : Colors.white.opacity800,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                            ],
+                          ),
                         ],
                       ),
-                    ],
-                  ),
+                    );
+                  },
                 ),
               ),
             ),
@@ -79,5 +86,21 @@ class SettingsPage extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+enum _SelectedUnit { f, c, k }
+
+extension SelectedUnitLocalizationX on _SelectedUnit {
+  String get text {
+    switch (this) {
+      case _SelectedUnit.f:
+        return "F";
+      case _SelectedUnit.c:
+        return "C";
+      case _SelectedUnit.k:
+      default:
+        return "K";
+    }
   }
 }
