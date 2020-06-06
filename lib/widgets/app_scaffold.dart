@@ -40,16 +40,19 @@ class AppScaffold extends StatelessWidget {
             bottom: pages[currentIndex].foregroundHeight +
                 bottomNavigationBarHeight,
           ),
-          child: Stack(
-            children: [
-              for (var page in pages)
-                AnimatedOpacity(
-                  opacity: pages.indexOf(page) == currentIndex ? 1.0 : 0.0,
-                  duration: _duration,
-                  curve: _curve,
-                  child: page.background,
-                ),
-            ],
+          child: SafeArea(
+            bottom: false,
+            child: Stack(
+              children: [
+                for (var page in pages)
+                  AnimatedOpacity(
+                    opacity: pages.indexOf(page) == currentIndex ? 1.0 : 0.0,
+                    duration: _duration,
+                    curve: _curve,
+                    child: page.background,
+                  ),
+              ],
+            ),
           ),
         ),
 
@@ -77,7 +80,8 @@ class AppScaffold extends StatelessWidget {
             child: AnimatedContainer(
               duration: _duration,
               curve: _curve,
-              padding: EdgeInsets.only(bottom: bottomNavigationBarHeight),
+              padding: EdgeInsets.only(bottom: bottomNavigationBarHeight) +
+                  pages[currentIndex].foregroundPadding,
               child: Stack(
                 children: [
                   for (var page in pages)
@@ -109,6 +113,7 @@ class AppScaffoldPage {
     @required this.background,
     @required this.foreground,
     @required this.foregroundHeight,
+    this.foregroundPadding = EdgeInsets.zero,
     this.borderRadius,
   });
 
@@ -116,4 +121,5 @@ class AppScaffoldPage {
   final Widget foreground;
   final double foregroundHeight;
   final Radius borderRadius;
+  final EdgeInsets foregroundPadding;
 }
