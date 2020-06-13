@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:srl/screens/weather_screen.dart';
 import 'package:srl/services/app_config/app_config.dart';
@@ -31,6 +32,13 @@ class SRWeatherApp extends StatelessWidget {
             sharedPreferences: await RM.get<SharedPreferences>().stateAsync,
           ),
         ),
+
+        /// Position
+        Inject<Position>.stream(
+          () => Geolocator().getPositionStream(
+            IN.get<AppConfig>().locationOptions,
+          ),
+        )
       ],
 
       /// Splash screen until dependencies are ready

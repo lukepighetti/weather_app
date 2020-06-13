@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import 'package:srl/extensions/adapters.dart';
 import 'package:srl/extensions/color.dart';
@@ -6,6 +7,7 @@ import 'package:srl/extensions/num.dart';
 import 'package:srl/extensions/open_weather_hourly_point.dart';
 import 'package:srl/extensions/string.dart';
 import 'package:srl/models/position.dart';
+import 'package:srl/services/app_config/app_config.dart';
 import 'package:srl/services/open_weather/endpoints/onecall.dart';
 import 'package:srl/services/open_weather/models/all_weather_data.dart';
 import 'package:srl/services/open_weather/open_weather.dart';
@@ -27,48 +29,58 @@ class _WeatherScreenState extends State<WeatherScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: WhenRebuilder<AllWeatherData>(
-        observe: () => RM.stream(
-            IN.get<OpenWeather>().getAllWeatherData(Position.baltimore())),
-        onIdle: () => Center(child: Text("We're waiting for the weather!")),
-        onWaiting: () => Center(child: CircularProgressIndicator()),
-        onError: (error) => Center(child: Text("$error")),
-        onData: (allWeather) {
-          final weatherCall = allWeather.oneCall;
-          final locationName = allWeather.currentWeather.name;
+      body: StreamBuilder<Position>(
+        stream: Geolocator().getPositionStream(),
+        builder: (context, snapshot) {
+          if (snapshot.data == null) return SizedBox.shrink();
 
-          if (weatherCall == null) return SizedBox.shrink();
+          return WhenRebuilder<AllWeatherData>(
+            observe: () => RM.stream(
+              IN.get<OpenWeather>().getAllWeatherData(PositionModel(
+                  snapshot.data.latitude, snapshot.data.longitude)),
+            ),
+            onIdle: () => Center(child: Text("We're waiting for the weather!")),
+            onWaiting: () => Center(child: CircularProgressIndicator()),
+            onError: (error) => Center(child: Text("$error")),
+            onData: (allWeather) {
+              final weatherCall = allWeather.oneCall;
+              final locationName = allWeather.currentWeather.name;
 
-          return AppScaffold(
-            currentIndex: _selectedIndex,
-            pages: [
-              AppScaffoldPage(
-                background: buildWeatherBackground(weatherCall, locationName),
-                foreground: HourlyWeather(oneCall: weatherCall),
-                foregroundHeight: 180,
-              ),
-              AppScaffoldPage(
-                background: Placeholder(color: Colors.red),
-                foreground: Placeholder(color: Colors.red),
-                foregroundHeight: 240,
-              ),
-              AppScaffoldPage(
-                background: Placeholder(color: Colors.blue),
-                foreground: Placeholder(color: Colors.blue),
-                foregroundHeight: 120,
-              ),
-              AppScaffoldPage(
-                background: Placeholder(color: Colors.green),
-                foreground: SettingsPage(),
-                foregroundHeight: MediaQuery.of(context).size.height,
-                borderRadius: Radius.zero,
-                foregroundPadding: EdgeInsets.only(
-                  top: MediaQuery.of(context).padding.top,
-                ),
-              ),
-            ],
-            bottomNavigationBarHeight: 80,
-            bottomNavigationBar: buildBottomBar(),
+              if (weatherCall == null) return SizedBox.shrink();
+
+              return AppScaffold(
+                currentIndex: _selectedIndex,
+                pages: [
+                  AppScaffoldPage(
+                    background:
+                        buildWeatherBackground(weatherCall, locationName),
+                    foreground: HourlyWeather(oneCall: weatherCall),
+                    foregroundHeight: 180,
+                  ),
+                  AppScaffoldPage(
+                    background: Placeholder(color: Colors.red),
+                    foreground: Placeholder(color: Colors.red),
+                    foregroundHeight: 240,
+                  ),
+                  AppScaffoldPage(
+                    background: Placeholder(color: Colors.blue),
+                    foreground: Placeholder(color: Colors.blue),
+                    foregroundHeight: 120,
+                  ),
+                  AppScaffoldPage(
+                    background: Placeholder(color: Colors.green),
+                    foreground: SettingsPage(),
+                    foregroundHeight: MediaQuery.of(context).size.height,
+                    borderRadius: Radius.zero,
+                    foregroundPadding: EdgeInsets.only(
+                      top: MediaQuery.of(context).padding.top,
+                    ),
+                  ),
+                ],
+                bottomNavigationBarHeight: 80,
+                bottomNavigationBar: buildBottomBar(),
+              );
+            },
           );
         },
       ),

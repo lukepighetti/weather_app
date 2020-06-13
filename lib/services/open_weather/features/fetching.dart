@@ -13,7 +13,7 @@ abstract class OpenWeatherFetchingDependencies {
 /// Used to fetch new data from the network
 mixin OpenWeatherFetching on OpenWeatherFetchingDependencies {
   /// Get the latest [OpenWeatherOneCall]
-  Future<OpenWeatherOneCall> getWeatherOneCall(Position position) async {
+  Future<OpenWeatherOneCall> getWeatherOneCall(PositionModel position) async {
     final uri =
         Uri.parse("https://api.openweathermap.org/data/2.5/onecall").replace(
       queryParameters: {
@@ -29,7 +29,7 @@ mixin OpenWeatherFetching on OpenWeatherFetchingDependencies {
   }
 
   /// Get the latest [CurrentWeather]
-  Future<CurrentWeather> getCurrentWeather(Position position) async {
+  Future<CurrentWeather> getCurrentWeather(PositionModel position) async {
     final uri =
         Uri.parse("https://api.openweathermap.org/data/2.5/weather").replace(
       queryParameters: {

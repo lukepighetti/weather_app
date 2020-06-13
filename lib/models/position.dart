@@ -1,12 +1,12 @@
 /// A position on the surface of the earth
-class Position {
-  const Position(this.latitude, this.longitude);
+class PositionModel {
+  const PositionModel(this.latitude, this.longitude);
 
-  const Position.baltimore()
+  const PositionModel.baltimore()
       : latitude = 39.2904,
         longitude = -76.6122;
 
-  const Position.bangor()
+  const PositionModel.bangor()
       : latitude = 44.8,
         longitude = -68.77;
 

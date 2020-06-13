@@ -24,7 +24,7 @@ class OpenWeather
   OpenWeather({@required this.appConfig, @required this.sharedPreferences});
 
   /// An offline-ready getter for fetching [OpenWeatherOneCall] and [CurrentWeather]
-  Stream<AllWeatherData> getAllWeatherData(Position position) async* {
+  Stream<AllWeatherData> getAllWeatherData(PositionModel position) async* {
     OpenWeatherOneCall oneCall;
     CurrentWeather currentWeather;
 

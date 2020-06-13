@@ -41,6 +41,7 @@ class _SettingsPageState extends State<SettingsPage> {
                         duration: _duration,
                         curve: _curve,
                         alignment: () {
+                          /// Animate alignment based on selected unit
                           switch (_selectedUnit) {
                             case _SelectedUnit.f:
                               return Alignment.topCenter;
@@ -154,6 +155,7 @@ extension SelectedUnitLocalizationX on _SelectedUnit {
     }
   }
 
+  /// Custom alignment depending on the unit
   Offset get offset {
     switch (this) {
       case _SelectedUnit.f:
