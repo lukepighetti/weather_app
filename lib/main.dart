@@ -32,13 +32,6 @@ class SRWeatherApp extends StatelessWidget {
             sharedPreferences: await RM.get<SharedPreferences>().stateAsync,
           ),
         ),
-
-        /// Position
-        Inject<Position>.stream(
-          () => Geolocator().getPositionStream(
-            IN.get<AppConfig>().locationOptions,
-          ),
-        )
       ],
 
       /// Splash screen until dependencies are ready

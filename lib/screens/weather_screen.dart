@@ -7,7 +7,6 @@ import 'package:srl/extensions/num.dart';
 import 'package:srl/extensions/open_weather_hourly_point.dart';
 import 'package:srl/extensions/string.dart';
 import 'package:srl/models/position.dart';
-import 'package:srl/services/app_config/app_config.dart';
 import 'package:srl/services/open_weather/endpoints/onecall.dart';
 import 'package:srl/services/open_weather/models/all_weather_data.dart';
 import 'package:srl/services/open_weather/open_weather.dart';
