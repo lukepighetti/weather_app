@@ -65,7 +65,6 @@ class _SettingsPageState extends State<SettingsPage> {
 
                       /// Unit selection inkwells
                       Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           for (var unit in _SelectedUnit.values)
                             SizedBox.fromSize(

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -24,10 +26,10 @@ class AppScaffold extends StatelessWidget {
   final double bottomNavigationBarHeight;
 
   /// The page transition duration
-  final _duration = Duration(milliseconds: 300);
+  final _duration = Duration(milliseconds: 500);
 
   /// The page transition curve
-  final _curve = Curves.easeInOutExpo;
+  final _curve = Curves.easeInOut;
 
   @override
   Widget build(BuildContext context) {
@@ -50,11 +52,24 @@ class AppScaffold extends StatelessWidget {
               child: Stack(
                 children: [
                   for (var page in pages)
-                    AnimatedOpacity(
-                      opacity: pages.indexOf(page) == currentIndex ? 1.0 : 0.0,
-                      duration: _duration,
-                      curve: _curve,
-                      child: page.background,
+                    ClipRect(
+                      child: OverflowBox(
+                        alignment: Alignment(0.0, 0.5),
+                        maxHeight: max(
+                            0.0,
+                            MediaQuery.of(context).size.height -
+                                (page.foregroundHeight +
+                                    bottomNavigationBarHeight +
+                                    bottomInset +
+                                    MediaQuery.of(context).padding.top)),
+                        child: AnimatedOpacity(
+                          opacity:
+                              pages.indexOf(page) == currentIndex ? 1.0 : 0.0,
+                          duration: _duration,
+                          curve: _curve,
+                          child: page.background,
+                        ),
+                      ),
                     ),
                 ],
               ),
@@ -63,6 +78,7 @@ class AppScaffold extends StatelessWidget {
         ),
 
         /// Foreground
+
         Align(
           alignment: Alignment.bottomCenter,
           child: AnnotatedRegion(
@@ -95,12 +111,26 @@ class AppScaffold extends StatelessWidget {
                 child: Stack(
                   children: [
                     for (var page in pages)
-                      AnimatedOpacity(
-                        opacity:
-                            pages.indexOf(page) == currentIndex ? 1.0 : 0.0,
-                        duration: _duration,
-                        curve: _curve,
-                        child: page.foreground,
+                      ClipRRect(
+                        borderRadius: BorderRadius.vertical(
+                          top: page.borderRadius ?? Radius.circular(36),
+                        ),
+                        child: OverflowBox(
+                          maxHeight: min(
+                              page.foregroundHeight,
+                              MediaQuery.of(context).size.height -
+                                  bottomNavigationBarHeight -
+                                  bottomInset -
+                                  page.foregroundPadding.vertical),
+                          alignment: Alignment(0.0, -0.5),
+                          child: AnimatedOpacity(
+                            opacity:
+                                pages.indexOf(page) == currentIndex ? 1.0 : 0.0,
+                            duration: _duration,
+                            curve: _curve,
+                            child: page.foreground,
+                          ),
+                        ),
                       ),
                   ],
                 ),
